@@ -1,6 +1,7 @@
 <p align="center">
-<img src="./doc/assets/cangjie_logo.png" width="60%" >
+<img src="./doc/assets/logo.png" width="60%" >
 </p>
+
 
 <div>
     <div style="display:inline-block">
@@ -171,58 +172,94 @@
             </g>
         </svg>
     </div>
-
-
 release:v0.0.1(发包的路径)  build:paassing  cjc:v0.28.2(仓路径)  cjcov:95%(cov路径) testcase:1000 project:open
 
-## <img alt="" src="./doc/assets/1png-03.png" style="display: inline-block;" width=3%/>简介
+## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=4%/>简介
 
-仓颉三方库按领域分类：基础三方库、后端服务、AI、科学计算、移动应用、嵌入式、云计算、大数据、web saas、桌面应用、AR/VR、游戏，共 12 个分类。2022 年仓颉语言库团队计划开发 20 个三方库以及启动 50 个三方库。
+HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基于 SPDY 协议。由互联网工程任务组（IETF）的 Hypertext Transfer Protocol Bis（httpbis）工作小组进行开发。该组织于2014年12月将HTTP/2标准提议递交至IESG进行讨论，于2015年2月17日被批准。HTTP/2标准于2015年5月以RFC 7540正式发表。
 
 ### 特性
 
-- 🚀 使用 Readme_XXX.md 来支持不同的语言，例如 Readme_en.md, Readme_zh.md
+- 🚀 特性1
 
-- 🚀 Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com/)
+- 🚀 特性2
 
-- 💪 你可以 https://gitee.com/explore 这个地址来了解 Gitee 上的优秀开源项目
+- 💪 特性3
 
-- 🛠️ [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
+- 🛠️ 特性4
 
-- 🌍 Gitee 官方提供的使用手册 https://gitee.com/help
+- 🌍 特性5
 
-- 💡 Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 https://gitee.com/gitee-stars/
+- 💡  特性6
 
 ### 路线
 
-里程碑插图
+![img](./doc/assets/milestone.png)
 
-##    <img alt="" src="./doc/assets/1png-02.png" style="display: inline-block;" width=3%/> 架构
+##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=4%/> 架构
+
+### 架构图：
 
 ![img](./doc/assets/framework.png)
 
-- 功能介绍
+- 功能1介绍
 
-- XXX
+- 功能2介绍
 
-- XXX
+- 功能3介绍
 
-三方库源代码目录结构如下图所示：
+### 源码目录：
+
+```shell
+.
+├── README.md
+├── doc
+│   ├── assets
+│   │   ├── 1png-02.png
+│   │   ├── 1png-03.png
+│   │   ├── framework.png
+│   │   └── logo.png
+│   ├── design.md
+│   ├── proposal.md
+│   └── xxx_lib.md
+├── src
+│   ├── Hpack.cj
+│   └── Http2.cj
+└── test
+    ├── HLT
+    │   └── testcase0001.cj
+    ├── LLT
+    │   └── testcase0001.cj
+    └── UT
+        └── testcase0001.cj
+```
+
+- `doc`是库的设计文档、提案、库的使用文档
+- `src`是库源码目录
+- `test`是存放测试用例，包括HLT用例、LLT 用例和UT用例
+
+## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=4%/>编译运行
+
+### 编译
+
+```shell
+cpm 
+```
+
+### 安装
+
+```shell
 
 ```
-<tree>
+
+### 运行
+
+```shell
+
 ```
 
-- list 描述具体内容
-- 
 
-## <img alt="" src="./doc/assets/1png-03.png" style="display: inline-block;" width=3%/>编译运行
 
-- 详细步骤
+## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=4%/>参与贡献
 
-  
-
-## <img alt="" src="./doc/assets/1png-02.png" style="display: inline-block;" width=3%/>参与贡献
-
-参与贡献的人：
-@gitee号 链接可以跳转到其主页
+[@chinesebear](https://gitee.com/chinesebear) [@xxx](https://gitee.com/chinesebear) [@yyy](https://gitee.com/chinesebear)
