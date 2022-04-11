@@ -174,7 +174,7 @@
     </div>
 release:v0.0.1(发包的路径)  build:paassing  cjc:v0.28.2(仓路径)  cjcov:95%(cov路径) testcase:1000 project:open
 
-## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=4%/>简介
+## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=3%/>简介
 
 HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基于 SPDY 协议。由互联网工程任务组（IETF）的 Hypertext Transfer Protocol Bis（httpbis）工作小组进行开发。该组织于2014年12月将HTTP/2标准提议递交至IESG进行讨论，于2015年2月17日被批准。HTTP/2标准于2015年5月以RFC 7540正式发表。
 
@@ -196,7 +196,7 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 
 ![img](./doc/assets/milestone.png)
 
-##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=4%/> 架构
+##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 架构
 
 ### 架构图：
 
@@ -238,7 +238,7 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 - `src`是库源码目录
 - `test`是存放测试用例，包括HLT用例、LLT 用例和UT用例
 
-## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=4%/>编译运行
+## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/>编译运行
 
 ### 编译
 
@@ -260,6 +260,6 @@ cpm
 
 
 
-## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=4%/>参与贡献
+## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/>参与贡献
 
 [@chinesebear](https://gitee.com/chinesebear) [@xxx](https://gitee.com/chinesebear) [@yyy](https://gitee.com/chinesebear)
