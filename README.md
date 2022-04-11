@@ -1,6 +1,7 @@
 <p align="center">
-<img src="./doc/assets/logo.png" width="60%" >
+<img src="./doc/assets/logo.png" width="30%" >
 </p>
+
 
 
 <p align="center">
@@ -32,13 +33,19 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 
 ### 路线
 
-![img](./doc/assets/milestone.png)
+<p align="center">
+<img src="./doc/assets/milestone.png" width="100%" >
+</p>
+
+
 
 ##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 架构
 
 ### 架构图：
 
-![img](./doc/assets/framework.png)
+<p align="center">
+<img src="./doc/assets/framework.png" width="60%" >
+</p>
 
 - 功能1介绍
 
@@ -52,24 +59,16 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 .
 ├── README.md
 ├── doc
-│   ├── assets
-│   │   ├── 1png-02.png
-│   │   ├── 1png-03.png
-│   │   ├── framework.png
-│   │   └── logo.png
-│   ├── design.md
-│   ├── proposal.md
-│   └── xxx_lib.md
+│   ├── assets     
+│   ├── design.md  
+│   ├── proposal.md
+│   └── xxx_lib.md 
 ├── src
-│   ├── Hpack.cj
-│   └── Http2.cj
-└── test
+│   └── Template.cj
+└── test   
     ├── HLT
-    │   └── testcase0001.cj
     ├── LLT
-    │   └── testcase0001.cj
     └── UT
-        └── testcase0001.cj
 ```
 
 - `doc`是库的设计文档、提案、库的使用文档
@@ -81,7 +80,7 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 ### 编译
 
 ```shell
-cpm 
+cpm
 ```
 
 ### 安装
@@ -95,8 +94,6 @@ cpm
 ```shell
 
 ```
-
-
 
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/>参与贡献
 
