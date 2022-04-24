@@ -80,7 +80,7 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 ### 编译
 
 ```shell
-cpm
+cpm build
 ```
 
 ### 安装
@@ -97,4 +97,4 @@ cpm
 
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/>参与贡献
 
-[@chinesebear](https://gitee.com/chinesebear) [@xxx](https://gitee.com/chinesebear) [@yyy](https://gitee.com/chinesebear)
+[@chinesebear](https://gitee.com/chinesebear)
