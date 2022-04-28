@@ -80,6 +80,7 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 ### 编译
 
 ```shell
+cpm update
 cpm build
 ```
 
@@ -89,9 +90,10 @@ cpm build
 
 ```
 
-### 运行
+### 示例1
 
-```shell
+```cangjie
+import xxx.*
 
 ```
 
