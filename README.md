@@ -7,15 +7,16 @@
 <p align="center">
 <img alt="" src="https://badg.now.sh/badge/release/v0.0.1?color=green" style="display: inline-block;" />
 <img alt="" src="https://badg.now.sh/badge/build/pass?color=green" style="display: inline-block;" />
-<img alt="" src="https://badg.now.sh/badge/cjc/v0.28.2?color=green" style="display: inline-block;" />
+<img alt="" src="https://badg.now.sh/badge/cjc/v0.28.4?color=green" style="display: inline-block;" />
 <img alt="" src="https://badg.now.sh/badge/cjcov/90%25?color=green" style="display: inline-block;" />
 <img alt="" src="https://badg.now.sh/badge/project/open?color=green" style="display: inline-block;" />
 </p>
 
 
-## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=3%/>简介
 
-HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基于 SPDY 协议。由互联网工程任务组（IETF）的 Hypertext Transfer Protocol Bis（httpbis）工作小组进行开发。该组织于2014年12月将HTTP/2标准提议递交至IESG进行讨论，于2015年2月17日被批准。HTTP/2标准于2015年5月以RFC 7540正式发表。
+## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=3%/>介绍
+
+介绍库或者框架符合的标准，应用领域，解决什么问题。有哪些主要的特点，与同类库相比有哪些优点。
 
 ### 特性
 
@@ -39,9 +40,9 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 
 
 
-##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 架构
+##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 软件架构
 
-### 架构图：
+### 架构图
 
 <p align="center">
 <img src="./doc/assets/framework.png" width="60%" >
@@ -53,7 +54,7 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 
 - 功能3介绍
 
-### 源码目录：
+### 源码目录
 
 ```shell
 .
@@ -75,28 +76,78 @@ HTTP/2 是 HTTP 协议自 1999 年 HTTP 1.1 发布后的首个更新，主要基
 - `src`是库源码目录
 - `test`是存放测试用例，包括HLT用例、LLT 用例和UT用例
 
+### 接口说明
+
+主要是核心类和成员函数说明
+
+#### class xxx
+
+##### func yyy
+
+成员函数功能描述
+
+```cangjie
+func yyy(): Unit
+```
+
+##### func zzz
+
+成员函数功能描述
+
+```cangjie
+func zzz(): Unit
+```
+
+#### class xxx
+
+##### func yyy
+
+成员函数功能描述
+
+```cangjie
+func yyy(): Unit
+```
+
+##### func zzz
+
+成员函数功能描述
+
+```cangjie
+func zzz(): Unit
+```
+
+#### func xxxx
+
+Top level函数功能描述
+
+```cangjie
+func xxxx(): Unit
+```
+
 ## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/>编译运行
 
 ### 编译
+
+编译描述和具体shell命令
 
 ```shell
 cpm update
 cpm build
 ```
 
-### 安装
+### xx示例
 
-```shell
-
-```
-
-### 示例1
+示例描述
 
 ```cangjie
 import xxx.*
 
 ```
 
+
+
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/>参与贡献
+
+主要写参与贡献的人以及个人主页链接
 
 [@chinesebear](https://gitee.com/chinesebear)
