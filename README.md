@@ -2,8 +2,6 @@
 <img src="./doc/assets/logo.png" width="30%" >
 </p>
 
-
-
 <p align="center">
 <img alt="" src="https://badg.now.sh/badge/release/v0.0.1?color=green" style="display: inline-block;" />
 <img alt="" src="https://badg.now.sh/badge/build/pass?color=green" style="display: inline-block;" />
@@ -124,7 +122,7 @@ Top level函数功能描述
 func xxxx(): Unit
 ```
 
-## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/>编译运行
+## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/>编译执行
 
 ### 编译
 
@@ -142,6 +140,12 @@ cpm build
 ```cangjie
 import xxx.*
 
+```
+
+执行结果如下：
+
+```shell
+xxx
 ```
 
 
