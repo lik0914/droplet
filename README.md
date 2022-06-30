@@ -5,8 +5,8 @@
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.28.4-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjcov-90%25-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.30.4-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjcov-50%25-red" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
 
@@ -34,7 +34,7 @@
 <p align="center">
 <img src="./doc/assets/milestone.png" width="100%" >
 </p>
-
+路线图roadmap在 doc/framework-roadmap-logo.pptx 中有源文件。
 
 
 ##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 软件架构
@@ -45,11 +45,7 @@
 <img src="./doc/assets/framework.png" width="60%" >
 </p>
 
-- 功能1介绍
-
-- 功能2介绍
-
-- 功能3介绍
+架构图文字说明，包括模块说明、架构层次等详细说明。
 
 ### 源码目录
 
