@@ -10,8 +10,7 @@
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
 
-
-## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=3%/>介绍
+## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=3%/> 介绍
 
 介绍库或者框架符合的标准，应用领域，解决什么问题。有哪些主要的特点，与同类库相比有哪些优点。
 
@@ -37,7 +36,7 @@
 路线图roadmap在 doc/framework-roadmap-logo.pptx 中有源文件。
 
 
-##    <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 软件架构
+## <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 软件架构
 
 ### 架构图
 
@@ -54,6 +53,7 @@
 ├── README.md
 ├── doc
 │   ├── assets
+│   ├── cjcov
 │   ├── design.md
 │   ├── proposal.md
 │   └── xxx_lib.md
@@ -65,9 +65,9 @@
     └── UT
 ```
 
-- `doc`是库的设计文档、提案、库的使用文档
-- `src`是库源码目录
-- `test`是存放测试用例，包括HLT用例、LLT 用例和UT用例
+- `doc` 是库的设计文档、提案、库的使用文档、LLT 用例覆盖报告（小于 90%，在此说明）
+- `src` 是库源码目录
+- `test` 是存放测试用例，包括 HLT 用例、LLT 用例和 UT 用例
 
 ### 接口说明
 
@@ -117,7 +117,7 @@ Top level函数功能描述
 func xxxx(): Unit
 ```
 
-## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/>编译执行
+## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 编译执行
 
 ### 编译
 
@@ -142,11 +142,6 @@ import xxx.*
 ```shell
 xxx
 ```
+## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献
 
-
-
-## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/>参与贡献
-
-主要写参与贡献的人以及个人主页链接
-
-[@chinesebear](https://gitee.com/chinesebear)
+欢迎给我们提交PR，欢迎给我们提交Issue，欢迎参与任何形式的贡献。
