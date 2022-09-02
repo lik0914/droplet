@@ -144,6 +144,4 @@ xxx
 ```
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献
 
-主要写参与贡献的人以及个人主页链接
-
-[@chinesebear](https://gitee.com/chinesebear)
+欢迎给我们提交PR，欢迎给我们提交Issue，欢迎参与任何形式的贡献。
