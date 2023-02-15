@@ -10,11 +10,11 @@
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
 
-## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=3%/> 介绍
+## 介绍
 
 介绍库或者框架符合的标准，应用领域，解决什么问题。有哪些主要的特点，与同类库相比有哪些优点。
 
-### 特性 
+### 特性
 
 - 🚀 特性1
 
@@ -36,7 +36,7 @@
 路线图roadmap在 doc/framework-roadmap-logo.pptx 中有源文件。
 
 
-## <img alt="" src="./doc/assets/readme-icon-framework.png" style="display: inline-block;" width=3%/> 软件架构
+## 软件架构
 
 ### 架构图
 
@@ -74,7 +74,7 @@
 主要类和函数接口说明详见 [API](./doc/api.md)
 
 
-## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 使用说明
+## 使用说明
 
 ### 编译构建
 
@@ -124,9 +124,9 @@ main() {
 xxx
 ```
 
-##  License
+## 开源协议
 xx License
 
-## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献
+## 参与贡献
 
 欢迎给我们提交PR，欢迎给我们提交Issue，欢迎参与任何形式的贡献。
