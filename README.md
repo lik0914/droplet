@@ -65,76 +65,38 @@
     └── UT
 ```
 
-- `doc` 是库的设计文档、提案、库的使用文档、LLT 用例覆盖报告（小于 90%，在此说明）
-- `src` 是库源码目录
-- `test` 是存放测试用例，包括 HLT 用例、LLT 用例和 UT 用例
+- `doc`  文档目录，用于存放设计、API接口等文档
+- `src`  源码目录
+- `test` 测试目录
 
 ### 接口说明
 
-主要是核心类和成员函数说明
+主要类和函数接口说明详见 [API](./doc/api.md)
 
-#### class xxx
 
-##### func yyy
+## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 使用说明
 
-成员函数功能描述
+### 编译构建
 
-```cangjie
-func yyy(): Unit
-```
-
-##### func zzz
-
-成员函数功能描述
-
-```cangjie
-func zzz(): Unit
-```
-
-#### class xxx
-
-##### func yyy
-
-成员函数功能描述
-
-```cangjie
-func yyy(): Unit
-```
-
-##### func zzz
-
-成员函数功能描述
-
-```cangjie
-func zzz(): Unit
-```
-
-#### func xxxx
-
-Top level函数功能描述
-
-```cangjie
-func xxxx(): Unit
-```
-
-## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 编译执行
-
-### 编译
-
-编译描述和具体shell命令
+描述具体的编译过程：
 
 ```shell
 cpm update
 cpm build
 ```
 
-### xx示例
+### 功能示例
+#### xxx 功能示例
 
-示例描述
+功能示例描述:
+
+示例代码如下：
 
 ```cangjie
 import xxx.*
-
+main() {
+ xxxx
+}
 ```
 
 执行结果如下：
@@ -142,6 +104,29 @@ import xxx.*
 ```shell
 xxx
 ```
+
+#### xxxx 功能示例
+
+功能示例描述:
+
+示例代码如下：
+
+```cangjie
+import xxx.*
+main() {
+ xxxx
+}
+```
+
+执行结果如下：
+
+```shell
+xxx
+```
+
+##  License
+xx License
+
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献
 
 欢迎给我们提交PR，欢迎给我们提交Issue，欢迎参与任何形式的贡献。
