@@ -1,11 +1,11 @@
 [
     {
-        "Name": " okhttp ",
+        "Name": " xxx",
         "License": " Apache License ",
         "License File": " LICENSE ",
         "Version Number": " v2.0 ",
-        "Owner": "square"
-        "Upstream URL": "https://github.com/square/okhttp",
-        "Description": " Doing HTTP efficiently makes your stuff load faster and saves bandwidth."
+        "Owner": "xxx"
+        "Upstream URL": "https://github.com/xxx",
+        "Description": " xxx."
     }
 ]
