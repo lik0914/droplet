@@ -1,12 +1,11 @@
 API 接口描述示例Example:
-
+```
 /*
-* 绑 定 参 数 ，index 从 0 开 始 ， 当 index 不 存 在 会 抛 异 常
-* 可 以 对 同 一 个 位 置 重 复 set， 后 值 会 覆 盖 前 值
-* value 如 果 是 None 表 示 SQL NULL
-* 参 数 index - 参 数 所 处 的 位 置 index
-* 参 数 value - 绑 定 指 定 下 标 位 置 的 值 ， 是 一 个 Option 类 型 。
-* 如 果 存 在 该 值 ， 将 会 绑 定 该 值 ， 如 果 不 存 在 该 值 ，绑 定 NULL
+* 绑定参数，index从0开始，当index不存在会抛异常
+* 可以对同一个位置重复set，后值会覆盖前值
+* 参数index-参数所处的位置index
+* 参数value-绑定指定下标位置的值，是一个Option类型
+* 如果存在该值，将会绑定该值，如果不存在该值，绑定NULL
 */
-
 func setBool(index: Int64, value: Option<Bool>): Unit
+```
