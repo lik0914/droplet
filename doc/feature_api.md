@@ -8,4 +8,5 @@ API 接口描述示例Example:
 * 参 数 value - 绑 定 指 定 下 标 位 置 的 值 ， 是 一 个 Option 类 型 。
 * 如 果 存 在 该 值 ， 将 会 绑 定 该 值 ， 如 果 不 存 在 该 值 ，绑 定 NULL
 */
+
 func setBool(index: Int64, value: Option<Bool>): Unit
