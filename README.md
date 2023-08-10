@@ -50,24 +50,19 @@
 
 ```shell
 .
-├── README.md
-├── doc
+├── README.md  #整体介绍
+├── doc        #文档目录，包括设计文档，API接口文档等
 │   ├── assets
 │   ├── cjcov
 │   ├── design.md
 │   ├── proposal.md
 │   └── xxx_lib.md
-├── src
-│   └── Template.cj
-└── test
+├── src              #源码目录
+│   └── Template.cj  #描述关键代码文件的功能
+└── test             #测试代码目录
     ├── HLT
-    ├── LLT
-    └── UT
+    └── LLT
 ```
-
-- `doc`  文档目录，用于存放设计、API接口等文档
-- `src`  源码目录
-- `test` 测试目录
 
 ### 接口说明
 
@@ -105,7 +100,7 @@ main() {
 xxx
 ```
 
-#### xxxx 功能示例
+#### xxx 功能示例
 
 功能示例描述:
 
@@ -124,8 +119,11 @@ main() {
 xxx
 ```
 
+## 约束与限制
+描述环境限制，版本限制，依赖版本等
+
 ## 开源协议
-xx License
+xxx License
 
 ## 参与贡献
 
