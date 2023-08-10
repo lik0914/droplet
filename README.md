@@ -49,16 +49,14 @@
 ### 源码目录
 
 ```shell
-├── README.md  #整体介绍
-├── doc        #文档目录，包括设计文档，API接口文档等
-│   ├── assets
-│   ├── cjcov
-│   ├── design.md
-│   ├── proposal.md
-│   └── xxx_lib.md
-├── src              #源码目录
-│   └── Template.cj  #描述关键代码文件的功能
-└── test             #测试代码目录
+├── README.md              #整体介绍
+├── doc                    #文档目录，包括设计文档，API接口文档等
+│   ├── cjcov              #覆盖率信息
+│   ├── design.md          #整体设计文档
+│   └── feature_api.md     #API接口文档
+├── src                    #源码目录
+│   └── Template.cj        #描述关键代码文件的功能
+└── test                   #测试代码目录
     ├── HLT
     └── LLT
 ```
