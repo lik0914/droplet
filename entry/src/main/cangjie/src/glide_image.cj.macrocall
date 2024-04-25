@@ -1,0 +1,642 @@
+
+from ohos import base.*
+from ohos import component.*
+
+from ohos import image.Image as MultiImage
+from ohos import image.Component as ImageComponent
+from ohos import image.*
+
+from ohos import state_manage.*
+from ohos import state_macro_manage.*
+
+import glide.*
+import glide.add.*
+import glide.request.*
+
+from std import fs.*
+from std import time.*
+from std import sync.*
+from std import collection.*
+
+/* ===== Emitted by MacroCall @Observed in glide_image.cj:21:1 ===== */
+/* 21.1 */class GlideRequestOption <: ObservedObject {
+/* 21.2 */    
+/* 21.3 */    private var stateVarDecl_overrideWidth_: ObservedProperty < Int64 >= ObservedProperty < Int64 >("stateVarDecl_overrideWidth_", 0)
+/* 21.4 */    
+/* 21.5 */    mut prop overrideWidth: Int64 {
+/* 21.6 */        get() {
+/* 21.7 */            return this.stateVarDecl_overrideWidth_.get()
+/* 21.8 */        }
+/* 21.9 */        set(v) {
+/* 21.10 */            this.stateVarDecl_overrideWidth_.set(v)
+/* 21.11 */        }
+/* 21.12 */    }
+/* 21.13 */    
+/* 21.14 */    private var stateVarDecl_overrideHeight_: ObservedProperty < Int64 >= ObservedProperty < Int64 >("stateVarDecl_overrideHeight_", 0)
+/* 21.15 */    
+/* 21.16 */    mut prop overrideHeight: Int64 {
+/* 21.17 */        get() {
+/* 21.18 */            return this.stateVarDecl_overrideHeight_.get()
+/* 21.19 */        }
+/* 21.20 */        set(v) {
+/* 21.21 */            this.stateVarDecl_overrideHeight_.set(v)
+/* 21.22 */        }
+/* 21.23 */    }
+/* 21.24 */    
+/* 21.25 */    private var stateVarDecl_signature_: ObservedProperty < String >= ObservedProperty < String >("stateVarDecl_signature_", "")
+/* 21.26 */    
+/* 21.27 */    mut prop signature: String {
+/* 21.28 */        get() {
+/* 21.29 */            return this.stateVarDecl_signature_.get()
+/* 21.30 */        }
+/* 21.31 */        set(v) {
+/* 21.32 */            this.stateVarDecl_signature_.set(v)
+/* 21.33 */        }
+/* 21.34 */    }
+/* 21.35 */    
+/* 21.36 */    private var stateVarDecl_requestListener_: ObservedProperty < Option <(PixelMap) -> Bool >>= ObservedProperty < Option <(PixelMap) -> Bool >>("stateVarDecl_requestListener_", Option <(PixelMap) -> Bool >.None)
+/* 21.37 */    
+/* 21.38 */    mut prop requestListener: Option <(PixelMap) -> Bool > {
+/* 21.39 */        get() {
+/* 21.40 */            return this.stateVarDecl_requestListener_.get()
+/* 21.41 */        }
+/* 21.42 */        set(v) {
+/* 21.43 */            this.stateVarDecl_requestListener_.set(v)
+/* 21.44 */        }
+/* 21.45 */    }
+/* 21.46 */    
+/* 21.47 */    private var stateVarDecl_loadSrc_: ObservedProperty < String >= ObservedProperty < String >("stateVarDecl_loadSrc_", "")
+/* 21.48 */    
+/* 21.49 */    mut prop loadSrc: String {
+/* 21.50 */        get() {
+/* 21.51 */            return this.stateVarDecl_loadSrc_.get()
+/* 21.52 */        }
+/* 21.53 */        set(v) {
+/* 21.54 */            this.stateVarDecl_loadSrc_.set(v)
+/* 21.55 */        }
+/* 21.56 */    }
+/* 21.57 */    
+/* 21.58 */    private var stateVarDecl_placeholder_: ObservedProperty < Option < CJResource >>= ObservedProperty < Option < CJResource >>("stateVarDecl_placeholder_", Option < CJResource >.None)
+/* 21.59 */    
+/* 21.60 */    mut prop placeholder: Option < CJResource > {
+/* 21.61 */        get() {
+/* 21.62 */            return this.stateVarDecl_placeholder_.get()
+/* 21.63 */        }
+/* 21.64 */        set(v) {
+/* 21.65 */            this.stateVarDecl_placeholder_.set(v)
+/* 21.66 */        }
+/* 21.67 */    }
+/* 21.68 */    
+/* 21.69 */    private var stateVarDecl_errorholder_: ObservedProperty < Option < CJResource >>= ObservedProperty < Option < CJResource >>("stateVarDecl_errorholder_", Option < CJResource >.None)
+/* 21.70 */    
+/* 21.71 */    mut prop errorholder: Option < CJResource > {
+/* 21.72 */        get() {
+/* 21.73 */            return this.stateVarDecl_errorholder_.get()
+/* 21.74 */        }
+/* 21.75 */        set(v) {
+/* 21.76 */            this.stateVarDecl_errorholder_.set(v)
+/* 21.77 */        }
+/* 21.78 */    }
+/* 21.79 */    
+/* 21.80 */    private var stateVarDecl_strategy_: ObservedProperty < Option < DiskCacheStrategy >>= ObservedProperty < Option < DiskCacheStrategy >>("stateVarDecl_strategy_", Option < DiskCacheStrategy >.None)
+/* 21.81 */    
+/* 21.82 */    mut prop strategy: Option < DiskCacheStrategy > {
+/* 21.83 */        get() {
+/* 21.84 */            return this.stateVarDecl_strategy_.get()
+/* 21.85 */        }
+/* 21.86 */        set(v) {
+/* 21.87 */            this.stateVarDecl_strategy_.set(v)
+/* 21.88 */        }
+/* 21.89 */    }
+/* 21.90 */    
+/* 21.91 */    private var stateVarDecl_label_: ObservedProperty < String >= ObservedProperty < String >("stateVarDecl_label_", "")
+/* 21.92 */    
+/* 21.93 */    mut prop label: String {
+/* 21.94 */        get() {
+/* 21.95 */            return this.stateVarDecl_label_.get()
+/* 21.96 */        }
+/* 21.97 */        set(v) {
+/* 21.98 */            this.stateVarDecl_label_.set(v)
+/* 21.99 */        }
+/* 21.100 */    }
+/* 21.101 */    
+/* 21.102 */    
+/* 21.103 */    
+/* 21.104 */    init(overrideWidth!: Option < Int64 >= None, overrideHeight!: Option < Int64 >= None, signature!: Option < String >= None, requestListener!: Option < Option <(PixelMap) -> Bool >>= None, loadSrc!: Option < String >= None, placeholder!: Option < Option < CJResource >>= None, errorholder!: Option < Option < CJResource >>= None, strategy!: Option < Option < DiskCacheStrategy >>= None, label!: Option < String >= None) {
+/* 21.105 */        
+/* 21.106 */        match(overrideWidth) {
+/* 21.107 */            case Some(v) => this.stateVarDecl_overrideWidth_ = ObservedProperty < Int64 >("stateVarDecl_overrideWidth_", v)
+/* 21.108 */            case _ =>()
+/* 21.109 */        }
+/* 21.110 */        
+/* 21.111 */        match(overrideHeight) {
+/* 21.112 */            case Some(v) => this.stateVarDecl_overrideHeight_ = ObservedProperty < Int64 >("stateVarDecl_overrideHeight_", v)
+/* 21.113 */            case _ =>()
+/* 21.114 */        }
+/* 21.115 */        
+/* 21.116 */        match(signature) {
+/* 21.117 */            case Some(v) => this.stateVarDecl_signature_ = ObservedProperty < String >("stateVarDecl_signature_", v)
+/* 21.118 */            case _ =>()
+/* 21.119 */        }
+/* 21.120 */        
+/* 21.121 */        match(requestListener) {
+/* 21.122 */            case Some(v) => this.stateVarDecl_requestListener_ = ObservedProperty < Option <(PixelMap) -> Bool >>("stateVarDecl_requestListener_", v)
+/* 21.123 */            case _ =>()
+/* 21.124 */        }
+/* 21.125 */        
+/* 21.126 */        match(loadSrc) {
+/* 21.127 */            case Some(v) => this.stateVarDecl_loadSrc_ = ObservedProperty < String >("stateVarDecl_loadSrc_", v)
+/* 21.128 */            case _ =>()
+/* 21.129 */        }
+/* 21.130 */        
+/* 21.131 */        match(placeholder) {
+/* 21.132 */            case Some(v) => this.stateVarDecl_placeholder_ = ObservedProperty < Option < CJResource >>("stateVarDecl_placeholder_", v)
+/* 21.133 */            case _ =>()
+/* 21.134 */        }
+/* 21.135 */        
+/* 21.136 */        match(errorholder) {
+/* 21.137 */            case Some(v) => this.stateVarDecl_errorholder_ = ObservedProperty < Option < CJResource >>("stateVarDecl_errorholder_", v)
+/* 21.138 */            case _ =>()
+/* 21.139 */        }
+/* 21.140 */        
+/* 21.141 */        match(strategy) {
+/* 21.142 */            case Some(v) => this.stateVarDecl_strategy_ = ObservedProperty < Option < DiskCacheStrategy >>("stateVarDecl_strategy_", v)
+/* 21.143 */            case _ =>()
+/* 21.144 */        }
+/* 21.145 */        
+/* 21.146 */        match(label) {
+/* 21.147 */            case Some(v) => this.stateVarDecl_label_ = ObservedProperty < String >("stateVarDecl_label_", v)
+/* 21.148 */            case _ =>()
+/* 21.149 */        }
+/* 21.150 */        
+/* 21.151 */        
+/* 21.152 */        this.addPublishVar(this.stateVarDecl_overrideWidth_)
+/* 21.153 */        this.addPropsInfo("stateVarDecl_overrideWidth_")
+/* 21.154 */        
+/* 21.155 */        this.addPublishVar(this.stateVarDecl_overrideHeight_)
+/* 21.156 */        this.addPropsInfo("stateVarDecl_overrideHeight_")
+/* 21.157 */        
+/* 21.158 */        this.addPublishVar(this.stateVarDecl_signature_)
+/* 21.159 */        this.addPropsInfo("stateVarDecl_signature_")
+/* 21.160 */        
+/* 21.161 */        this.addPublishVar(this.stateVarDecl_requestListener_)
+/* 21.162 */        this.addPropsInfo("stateVarDecl_requestListener_")
+/* 21.163 */        
+/* 21.164 */        this.addPublishVar(this.stateVarDecl_loadSrc_)
+/* 21.165 */        this.addPropsInfo("stateVarDecl_loadSrc_")
+/* 21.166 */        
+/* 21.167 */        this.addPublishVar(this.stateVarDecl_placeholder_)
+/* 21.168 */        this.addPropsInfo("stateVarDecl_placeholder_")
+/* 21.169 */        
+/* 21.170 */        this.addPublishVar(this.stateVarDecl_errorholder_)
+/* 21.171 */        this.addPropsInfo("stateVarDecl_errorholder_")
+/* 21.172 */        
+/* 21.173 */        this.addPublishVar(this.stateVarDecl_strategy_)
+/* 21.174 */        this.addPropsInfo("stateVarDecl_strategy_")
+/* 21.175 */        
+/* 21.176 */        this.addPublishVar(this.stateVarDecl_label_)
+/* 21.177 */        this.addPropsInfo("stateVarDecl_label_")
+/* 21.178 */        
+/* 21.179 */    }
+/* 21.180 */    
+/* 21.181 */    
+/* 21.182 */    
+/* 21.183 */    public func set(newValue: ObservedComplexAbstract) {
+/* 21.184 */        
+/* 21.185 */        let realValue =(newValue as GlideRequestOption).getOrThrow()
+/* 21.186 */        
+/* 21.187 */        this.overrideWidth = realValue.overrideWidth
+/* 21.188 */        
+/* 21.189 */        this.overrideHeight = realValue.overrideHeight
+/* 21.190 */        
+/* 21.191 */        this.signature = realValue.signature
+/* 21.192 */        
+/* 21.193 */        this.requestListener = realValue.requestListener
+/* 21.194 */        
+/* 21.195 */        this.loadSrc = realValue.loadSrc
+/* 21.196 */        
+/* 21.197 */        this.placeholder = realValue.placeholder
+/* 21.198 */        
+/* 21.199 */        this.errorholder = realValue.errorholder
+/* 21.200 */        
+/* 21.201 */        this.strategy = realValue.strategy
+/* 21.202 */        
+/* 21.203 */        this.label = realValue.label
+/* 21.204 */        
+/* 21.205 */        ()
+/* 21.206 */    }
+/* 21.207 */    
+/* 21.208 */    
+/* 21.209 */}
+/* 21.210 */
+/* ===== End of the Emit ===== */
+
+/* ===== Emitted by MacroCall @Component in glide_image.cj:40:1 ===== */
+/* 40.1 */class GlideImage <: CustomView {
+/* 40.2 */    
+/* 40.3 */    
+/* 40.4 */    private var stateVarDecl_option_: ObservedProperty < GlideRequestOption >
+/* 40.5 */    
+/* 40.6 */    
+/* 40.7 */    private mut prop option: GlideRequestOption {
+/* 40.8 */        get() {
+/* 40.9 */            return this.stateVarDecl_option_.get()
+/* 40.10 */        }
+/* 40.11 */        set(v) {
+/* 40.12 */            this.stateVarDecl_option_.set(v)
+/* 40.13 */        }
+/* 40.14 */    }
+/* 40.15 */    
+/* 40.16 */    
+/* 40.17 */    private var stateVarDecl_isLoading_: ObservedProperty < Bool >= ObservedProperty < Bool >("stateVarDecl_isLoading_", true)
+/* 40.18 */    
+/* 40.19 */    
+/* 40.20 */    private mut prop isLoading: Bool {
+/* 40.21 */        get() {
+/* 40.22 */            return this.stateVarDecl_isLoading_.get()
+/* 40.23 */        }
+/* 40.24 */        set(v) {
+/* 40.25 */            this.stateVarDecl_isLoading_.set(v)
+/* 40.26 */        }
+/* 40.27 */    }
+/* 40.28 */    
+/* 40.29 */    
+/* 40.30 */    private var stateVarDecl_isError_: ObservedProperty < Bool >= ObservedProperty < Bool >("stateVarDecl_isError_", false)
+/* 40.31 */    
+/* 40.32 */    
+/* 40.33 */    private mut prop isError: Bool {
+/* 40.34 */        get() {
+/* 40.35 */            return this.stateVarDecl_isError_.get()
+/* 40.36 */        }
+/* 40.37 */        set(v) {
+/* 40.38 */            this.stateVarDecl_isError_.set(v)
+/* 40.39 */        }
+/* 40.40 */    }
+/* 40.41 */    
+/* 40.42 */    
+/* 40.43 */    private var stateVarDecl_beginFn_: ObservedProperty <() -> Unit >
+/* 40.44 */    
+/* 40.45 */    
+/* 40.46 */    private mut prop beginFn:() -> Unit {
+/* 40.47 */        get() {
+/* 40.48 */            return this.stateVarDecl_beginFn_.get()
+/* 40.49 */        }
+/* 40.50 */        set(v) {
+/* 40.51 */            this.stateVarDecl_beginFn_.set(v)
+/* 40.52 */        }
+/* 40.53 */    }
+/* 40.54 */    
+/* 40.55 */    
+/* 40.56 */    private var stateVarDecl_endFn_: ObservedProperty <() -> Unit >
+/* 40.57 */    
+/* 40.58 */    
+/* 40.59 */    private mut prop endFn:() -> Unit {
+/* 40.60 */        get() {
+/* 40.61 */            return this.stateVarDecl_endFn_.get()
+/* 40.62 */        }
+/* 40.63 */        set(v) {
+/* 40.64 */            this.stateVarDecl_endFn_.set(v)
+/* 40.65 */        }
+/* 40.66 */    }
+/* 40.67 */    
+/* 40.68 */    
+/* 40.69 */    private var stateVarDecl_flag_: ObservedProperty < Bool >= ObservedProperty < Bool >("stateVarDecl_flag_", false)
+/* 40.70 */    
+/* 40.71 */    
+/* 40.72 */    private mut prop flag: Bool {
+/* 40.73 */        get() {
+/* 40.74 */            return this.stateVarDecl_flag_.get()
+/* 40.75 */        }
+/* 40.76 */        set(v) {
+/* 40.77 */            this.stateVarDecl_flag_.set(v)
+/* 40.78 */        }
+/* 40.79 */    }
+/* 40.80 */    
+/* 40.81 */    
+/* 40.82 */    var oldWidth: Int64 = 0
+/* 40.83 */    
+/* 40.84 */    
+/* 40.85 */    var oldHeight: Int64 = 0
+/* 40.86 */    
+/* 40.87 */    
+/* 40.88 */    let size: Size = Size(width: 1, height: 1)
+/* 40.89 */    
+/* 40.90 */    
+/* 40.91 */    let opts: InitializationOptions = InitializationOptions(size: size)
+/* 40.92 */    
+/* 40.93 */    
+/* 40.94 */    let color: Array < UInt8 >= Array < UInt8 >(96, item: 0)
+/* 40.95 */    
+/* 40.96 */    
+/* 40.97 */    private var stateVarDecl_pixelMap_: ObservedProperty < PixelMap >= ObservedProperty < PixelMap >("stateVarDecl_pixelMap_", createPixelMap(color, opts))
+/* 40.98 */    
+/* 40.99 */    
+/* 40.100 */    private mut prop pixelMap: PixelMap {
+/* 40.101 */        get() {
+/* 40.102 */            return this.stateVarDecl_pixelMap_.get()
+/* 40.103 */        }
+/* 40.104 */        set(v) {
+/* 40.105 */            this.stateVarDecl_pixelMap_.set(v)
+/* 40.106 */        }
+/* 40.107 */    }
+/* 40.108 */    
+/* 40.109 */    
+/* 40.110 */    private var stateVarDecl_pixelStore_: ObservedProperty < PixelMap >= ObservedProperty < PixelMap >("stateVarDecl_pixelStore_", createPixelMap(color, opts))
+/* 40.111 */    
+/* 40.112 */    
+/* 40.113 */    private mut prop pixelStore: PixelMap {
+/* 40.114 */        get() {
+/* 40.115 */            return this.stateVarDecl_pixelStore_.get()
+/* 40.116 */        }
+/* 40.117 */        set(v) {
+/* 40.118 */            this.stateVarDecl_pixelStore_.set(v)
+/* 40.119 */        }
+/* 40.120 */    }
+/* 40.121 */    
+/* 40.122 */    
+/* 40.123 */    public func onAppear(): Unit {
+/* 40.124 */        AppLog.error("调用 GlideImage [onAppear]----------------------------------------1")
+/* 40.125 */        Glide.get(globalAbilityContext.getOrThrow()).onAppear(option.label)
+/* 40.126 */    }
+/* 40.127 */    
+/* 40.128 */    
+/* 40.129 */    public func onDisappear(): Unit {
+/* 40.130 */        AppLog.error("调用 GlideImage [onDisappear]----------------------------------------1")
+/* 40.131 */    }
+/* 40.132 */    
+/* 40.133 */    
+/* 40.134 */    public func onOptionChanged(): Unit {
+/* 40.135 */        updateImg(oldWidth, oldHeight)
+/* 40.136 */    }
+/* 40.137 */    
+/* 40.138 */    
+/* 40.139 */    public func imgChanged(): Unit {
+/* 40.140 */        AppLog.error("调用 GlideImage [imgChanged]----------------------------------------1")
+/* 40.141 */        this.pixelMap = pixelStore
+/* 40.142 */    }
+/* 40.143 */    
+/* 40.144 */    
+/* 40.145 */    public func updateImg(width: Int64, height: Int64): Unit {
+/* 40.146 */        if(option.loadSrc != "" && width > 0 && width > 0) {
+/* 40.147 */            beginFn()
+/* 40.148 */            AppLog.error("进来了 GlideImage [updateImg]----------------------------------------1")
+/* 40.149 */            var glide = Glide.withContext(globalAbilityContext.getOrThrow(), option.label).load(option.loadSrc)
+/* 40.150 */            if(let Some(v) <- option.strategy) {
+/* 40.151 */                glide = glide.setDiskCacheStrategy(v)
+/* 40.152 */            }
+/* 40.153 */            if(let Some(v) <- option.placeholder) {
+/* 40.154 */                glide = glide.placeholder(v)
+/* 40.155 */            }
+/* 40.156 */            if(let Some(v) <- option.errorholder) {
+/* 40.157 */                glide = glide.error(v)
+/* 40.158 */            }
+/* 40.159 */            glide.listener({ drawable: Drawable, model: Model, target: Target < Drawable >, datasource: DataSource, isFirstResource: Bool => endFn()
+/* 40.160 */                AppLog.error("load成功----------------------------------------GlideImage [updateImg]")
+/* 40.161 */            return false }, { e: GlideException, model: Model, target: Target < Drawable >, isFirstResource: Bool => AppLog.error("load失败----------------------------------------GlideImage [updateImg]")
+/* 40.162 */                isError = true
+/* 40.163 */            return true }).into({ p: PixelMap => AppLog.error("callback 1----------------------------------------GlideImage [updateImg]")
+/* 40.164 */                isLoading = false
+/* 40.165 */            pixelStore = p }, { cjres: CJResource, isErrorPic: Bool => AppLog.error("callback 2----------------------------------------GlideImage [updateImg]")
+/* 40.166 */            isLoading = false }, width, height)
+/* 40.167 */        }
+/* 40.168 */    }
+/* 40.169 */    
+/* 40.170 */    
+/* 40.171 */    
+/* 40.172 */    public func render() {
+/* 40.173 */        
+/* 40.174 */        observeComponentCreation({ elmtId, isInitialRender =>
+/* 40.175 */            If {
+/* 40.176 */                
+/* 40.177 */                if(isLoading) {
+/* 40.178 */                    
+/* 40.179 */                    this.ifElseBranchUpdateFunction(0, { =>
+/* 40.180 */                        
+/* 40.181 */                        observeComponentCreation({ elmtId, isInitialRender =>
+/* 40.182 */                            If {
+/* 40.183 */                                
+/* 40.184 */                                if(let Some(v) <- option.placeholder) {
+/* 40.185 */                                    
+/* 40.186 */                                    this.ifElseBranchUpdateFunction(0, { =>
+/* 40.187 */                                        
+/* 40.188 */                                        this.observeComponentCreation({ elmtId, isInitialRender =>
+/* 40.189 */                                            Image(v).width(100.percent).objectFit(ImageFit.ScaleDown)
+/* 40.190 */                                        })
+/* 40.191 */                                        
+/* 40.192 */                                    })
+/* 40.193 */                                    
+/* 40.194 */                                }
+/* 40.195 */                                else
+/* 40.196 */                                {
+/* 40.197 */                                    If.branchId(1)
+/* 40.198 */                                }
+/* 40.199 */                                
+/* 40.200 */                            }
+/* 40.201 */                        })
+/* 40.202 */                        
+/* 40.203 */                        
+/* 40.204 */                    })
+/* 40.205 */                    
+/* 40.206 */                }
+/* 40.207 */                else
+/* 40.208 */                if(! isLoading && isLoading) {
+/* 40.209 */                    
+/* 40.210 */                    this.ifElseBranchUpdateFunction(1, { =>
+/* 40.211 */                        
+/* 40.212 */                        observeComponentCreation({ elmtId, isInitialRender =>
+/* 40.213 */                            If {
+/* 40.214 */                                
+/* 40.215 */                                if(let Some(v) <- option.errorholder) {
+/* 40.216 */                                    
+/* 40.217 */                                    this.ifElseBranchUpdateFunction(0, { =>
+/* 40.218 */                                        
+/* 40.219 */                                        this.observeComponentCreation({ elmtId, isInitialRender =>
+/* 40.220 */                                            Image(v).width(100.percent).objectFit(ImageFit.ScaleDown)
+/* 40.221 */                                        })
+/* 40.222 */                                        
+/* 40.223 */                                    })
+/* 40.224 */                                    
+/* 40.225 */                                }
+/* 40.226 */                                else
+/* 40.227 */                                {
+/* 40.228 */                                    If.branchId(1)
+/* 40.229 */                                }
+/* 40.230 */                                
+/* 40.231 */                            }
+/* 40.232 */                        })
+/* 40.233 */                        
+/* 40.234 */                        
+/* 40.235 */                    })
+/* 40.236 */                    
+/* 40.237 */                }
+/* 40.238 */                else
+/* 40.239 */                if(! isLoading && ! isLoading) {
+/* 40.240 */                    
+/* 40.241 */                    this.ifElseBranchUpdateFunction(2, { =>
+/* 40.242 */                        
+/* 40.243 */                        this.observeComponentCreation({ elmtId, isInitialRender =>
+/* 40.244 */                            Image(this.pixelMap).width(100.percent).objectFit(ImageFit.ScaleDown)
+/* 40.245 */                        })
+/* 40.246 */                        
+/* 40.247 */                    })
+/* 40.248 */                    
+/* 40.249 */                }
+/* 40.250 */                else
+/* 40.251 */                {
+/* 40.252 */                    If.branchId(3)
+/* 40.253 */                }
+/* 40.254 */                
+/* 40.255 */            }
+/* 40.256 */        })
+/* 40.257 */        
+/* 40.258 */        
+/* 40.259 */        ()
+/* 40.260 */    }
+/* 40.261 */    
+/* 40.262 */    
+/* 40.263 */    public init(parent: Option < CustomView >, option!: ObservedProperty < GlideRequestOption >, isLoading!: Option < ObservedProperty < Bool >>= None, isError!: Option < ObservedProperty < Bool >>= None, beginFn!: ObservedProperty <() -> Unit >, endFn!: ObservedProperty <() -> Unit >, flag!: Option < ObservedProperty < Bool >>= None, oldWidth!: Option < ObservedProperty < Int64 >>= None, oldHeight!: Option < ObservedProperty < Int64 >>= None, pixelMap!: Option < ObservedProperty < PixelMap >>= None, pixelStore!: Option < ObservedProperty < PixelMap >>= None) {
+/* 40.264 */        super(parent)
+/* 40.265 */        
+/* 40.266 */        this.stateVarDecl_option_ = option
+/* 40.267 */        
+/* 40.268 */        match(isLoading) {
+/* 40.269 */            case Some(v) => this.stateVarDecl_isLoading_ = ObservedProperty < Bool >("stateVarDecl_isLoading_", v.get())
+/* 40.270 */            case _ =>()
+/* 40.271 */        }
+/* 40.272 */        
+/* 40.273 */        match(isError) {
+/* 40.274 */            case Some(v) => this.stateVarDecl_isError_ = ObservedProperty < Bool >("stateVarDecl_isError_", v.get())
+/* 40.275 */            case _ =>()
+/* 40.276 */        }
+/* 40.277 */        
+/* 40.278 */        this.stateVarDecl_beginFn_ = beginFn.createProp("stateVarDecl_beginFn_")
+/* 40.279 */        
+/* 40.280 */        this.stateVarDecl_endFn_ = endFn.createProp("stateVarDecl_endFn_")
+/* 40.281 */        
+/* 40.282 */        match(flag) {
+/* 40.283 */            case Some(v) => this.stateVarDecl_flag_ = ObservedProperty < Bool >("stateVarDecl_flag_", v.get())
+/* 40.284 */            case _ =>()
+/* 40.285 */        }
+/* 40.286 */        
+/* 40.287 */        match(oldWidth) {
+/* 40.288 */            case Some(v) => this.oldWidth = v.get()
+/* 40.289 */            case _ =>()
+/* 40.290 */        }
+/* 40.291 */        
+/* 40.292 */        match(oldHeight) {
+/* 40.293 */            case Some(v) => this.oldHeight = v.get()
+/* 40.294 */            case _ =>()
+/* 40.295 */        }
+/* 40.296 */        
+/* 40.297 */        match(pixelMap) {
+/* 40.298 */            case Some(v) => this.stateVarDecl_pixelMap_ = ObservedProperty < PixelMap >("stateVarDecl_pixelMap_", v.get())
+/* 40.299 */            case _ =>()
+/* 40.300 */        }
+/* 40.301 */        
+/* 40.302 */        match(pixelStore) {
+/* 40.303 */            case Some(v) => this.stateVarDecl_pixelStore_ = ObservedProperty < PixelMap >("stateVarDecl_pixelStore_", v.get())
+/* 40.304 */            case _ =>()
+/* 40.305 */        }
+/* 40.306 */        
+/* 40.307 */        
+/* 40.308 */        this.stateVarDecl_option_.subscribeEx(this)
+/* 40.309 */        
+/* 40.310 */        this.stateVarDecl_isLoading_.subscribeEx(this)
+/* 40.311 */        
+/* 40.312 */        this.stateVarDecl_isError_.subscribeEx(this)
+/* 40.313 */        
+/* 40.314 */        this.stateVarDecl_beginFn_.subscribeEx(this)
+/* 40.315 */        
+/* 40.316 */        this.stateVarDecl_endFn_.subscribeEx(this)
+/* 40.317 */        
+/* 40.318 */        this.stateVarDecl_flag_.subscribeEx(this)
+/* 40.319 */        
+/* 40.320 */        this.stateVarDecl_pixelMap_.subscribeEx(this)
+/* 40.321 */        
+/* 40.322 */        this.stateVarDecl_pixelStore_.subscribeEx(this)
+/* 40.323 */        
+/* 40.324 */        SubscriberManager.getInstance().add(this)
+/* 40.325 */        
+/* 40.326 */        
+/* 40.327 */        this.declareWatch < GlideRequestOption >(stateVarDecl_option_, onOptionChanged)
+/* 40.328 */        
+/* 40.329 */        this.declareWatch < PixelMap >(stateVarDecl_pixelStore_, imgChanged)
+/* 40.330 */        
+/* 40.331 */        registerSelf()
+/* 40.332 */    }
+/* 40.333 */    
+/* 40.334 */    
+/* 40.335 */    public func aboutToBeDeleted() {
+/* 40.336 */        SubscriberManager.getInstance().delete(this)
+/* 40.337 */    }
+/* 40.338 */    
+/* 40.339 */    
+/* 40.340 */    func updateWithValueParams(option!: Option < GlideRequestOption >= Option < GlideRequestOption >.None, isLoading!: Option < Bool >= Option < Bool >.None, isError!: Option < Bool >= Option < Bool >.None, beginFn!: Option <() -> Unit >= Option <() -> Unit >.None, endFn!: Option <() -> Unit >= Option <() -> Unit >.None, flag!: Option < Bool >= Option < Bool >.None, oldWidth!: Option < Int64 >= Option < Int64 >.None, oldHeight!: Option < Int64 >= Option < Int64 >.None, pixelMap!: Option < PixelMap >= Option < PixelMap >.None, pixelStore!: Option < PixelMap >= Option < PixelMap >.None): Unit {
+/* 40.341 */        
+/* 40.342 */        match(isLoading) {
+/* 40.343 */            case Some(v) => this.isLoading = v
+/* 40.344 */            case _ =>()
+/* 40.345 */        }
+/* 40.346 */        
+/* 40.347 */        match(isError) {
+/* 40.348 */            case Some(v) => this.isError = v
+/* 40.349 */            case _ =>()
+/* 40.350 */        }
+/* 40.351 */        
+/* 40.352 */        match(beginFn) {
+/* 40.353 */            case Some(v) => this.beginFn = v
+/* 40.354 */            case _ =>()
+/* 40.355 */        }
+/* 40.356 */        
+/* 40.357 */        match(endFn) {
+/* 40.358 */            case Some(v) => this.endFn = v
+/* 40.359 */            case _ =>()
+/* 40.360 */        }
+/* 40.361 */        
+/* 40.362 */        match(flag) {
+/* 40.363 */            case Some(v) => this.flag = v
+/* 40.364 */            case _ =>()
+/* 40.365 */        }
+/* 40.366 */        
+/* 40.367 */        match(pixelMap) {
+/* 40.368 */            case Some(v) => this.pixelMap = v
+/* 40.369 */            case _ =>()
+/* 40.370 */        }
+/* 40.371 */        
+/* 40.372 */        match(pixelStore) {
+/* 40.373 */            case Some(v) => this.pixelStore = v
+/* 40.374 */            case _ =>()
+/* 40.375 */        }
+/* 40.376 */        
+/* 40.377 */    }
+/* 40.378 */    
+/* 40.379 */    
+/* 40.380 */    public func rerender() {
+/* 40.381 */        this.updateDirtyElements()
+/* 40.382 */    }
+/* 40.383 */    
+/* 40.384 */    
+/* 40.385 */    public func purgeVariableDependenciesOnElmtId(rmElmtId: Int64) {
+/* 40.386 */        
+/* 40.387 */        this.stateVarDecl_option_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.388 */        
+/* 40.389 */        this.stateVarDecl_isLoading_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.390 */        
+/* 40.391 */        this.stateVarDecl_isError_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.392 */        
+/* 40.393 */        this.stateVarDecl_beginFn_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.394 */        
+/* 40.395 */        this.stateVarDecl_endFn_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.396 */        
+/* 40.397 */        this.stateVarDecl_flag_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.398 */        
+/* 40.399 */        this.stateVarDecl_pixelMap_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.400 */        
+/* 40.401 */        this.stateVarDecl_pixelStore_.purgeDependencyOnElmtId(rmElmtId)
+/* 40.402 */        
+/* 40.403 */    }
+/* 40.404 */    
+/* 40.405 */    
+/* 40.406 */}
+/* 40.407 */
+/* ===== End of the Emit ===== */
