@@ -1,0 +1,205 @@
+from ohos import base.*
+from ohos import component.*
+from ohos import state_manage.*
+from ohos import state_macro_manage.*
+from cj_res import default.*
+
+
+from net import http.*
+from std import socket.*
+from net import tls.*
+from std import io.*
+from encoding import url.*
+from std import fs.*
+from std import time.*
+
+import glide.*
+import glide.add.*
+import glide.request.*
+import glide.executor.*
+import glide.util.utils.*
+
+import glide.request_options.*
+
+import glide.load.*
+import glide.util.*
+import glide.util.pool.*
+import glide.util.calculator.*
+
+//import glide.engine.cache.memory_cache.*
+
+
+/* ===== Emitted by MacroCall @Entry in index.cj:32:1 ===== */
+/* 32.1 */class MyView <: CustomView {
+/* 32.2 */    
+/* 32.3 */    
+/* 32.4 */    var width: Int64 = 640
+/* 32.5 */    
+/* 32.6 */    
+/* 32.7 */    var height: Int64 = 480
+/* 32.8 */    
+/* 32.9 */    
+/* 32.10 */    private var stateVarDecl_src_: ObservedProperty < String >= ObservedProperty < String >("stateVarDecl_src_", "/data/storage/el1/bundle/entry/resources/base/media/testbmp.bmp")
+/* 32.11 */    
+/* 32.12 */    
+/* 32.13 */    private mut prop src: String {
+/* 32.14 */        get() {
+/* 32.15 */            return this.stateVarDecl_src_.get()
+/* 32.16 */        }
+/* 32.17 */        set(v) {
+/* 32.18 */            this.stateVarDecl_src_.set(v)
+/* 32.19 */        }
+/* 32.20 */    }
+/* 32.21 */    
+/* 32.22 */    
+/* 32.23 */    let size: Size = Size(width: 1, height: 1)
+/* 32.24 */    
+/* 32.25 */    
+/* 32.26 */    let opts: InitializationOptions = InitializationOptions(size: size)
+/* 32.27 */    
+/* 32.28 */    
+/* 32.29 */    let color: Array < UInt8 >= Array < UInt8 >(96, item: 0)
+/* 32.30 */    
+/* 32.31 */    
+/* 32.32 */    private var stateVarDecl_pixelMap_: ObservedProperty < PixelMap >= ObservedProperty < PixelMap >("stateVarDecl_pixelMap_", createPixelMap(color, opts))
+/* 32.33 */    
+/* 32.34 */    
+/* 32.35 */    private mut prop pixelMap: PixelMap {
+/* 32.36 */        get() {
+/* 32.37 */            return this.stateVarDecl_pixelMap_.get()
+/* 32.38 */        }
+/* 32.39 */        set(v) {
+/* 32.40 */            this.stateVarDecl_pixelMap_.set(v)
+/* 32.41 */        }
+/* 32.42 */    }
+/* 32.43 */    
+/* 32.44 */    
+/* 32.45 */    private var stateVarDecl_pixelStore_: ObservedProperty < PixelMap >= ObservedProperty < PixelMap >("stateVarDecl_pixelStore_", createPixelMap(color, opts))
+/* 32.46 */    
+/* 32.47 */    
+/* 32.48 */    private mut prop pixelStore: PixelMap {
+/* 32.49 */        get() {
+/* 32.50 */            return this.stateVarDecl_pixelStore_.get()
+/* 32.51 */        }
+/* 32.52 */        set(v) {
+/* 32.53 */            this.stateVarDecl_pixelStore_.set(v)
+/* 32.54 */        }
+/* 32.55 */    }
+/* 32.56 */    
+/* 32.57 */    
+/* 32.58 */    public func imgChanged(): Unit {
+/* 32.59 */        AppLog.error("调用 GlideImage [imgChanged]----------------------------------------1")
+/* 32.60 */        this.pixelMap = pixelStore
+/* 32.61 */    }
+/* 32.62 */    
+/* 32.63 */    
+/* 32.64 */    
+/* 32.65 */    public func render() {
+/* 32.66 */        
+/* 32.67 */        this.observeComponentCreation({ elmtId, isInitialRender =>
+/* 32.68 */            Column { this.observeComponentCreation({ elmtId, isInitialRender => Button("load png").onClick({ event => Glide.withContext(globalAbilityContext.getOrThrow()).load(src).setDiskCacheStrategy(DiskCacheStrategyDATA()).listener({ drawable: Drawable, model: Model, target: Target < Drawable >, datasource: DataSource, isFirstResource: Bool => AppLog.error("load成功----------------------------------------GlideImage [updateImg]")
+/* 32.69 */            return false }, { e: GlideException, model: Model, target: Target < Drawable >, isFirstResource: Bool => AppLog.error("load失败----------------------------------------GlideImage [updateImg]")
+/* 32.70 */            return true }).into({ p: PixelMap => AppLog.error("callback 1----------------------------------------GlideImage [updateImg]")
+/* 32.71 */            pixelStore = p }, width, height) }).width(400.px).height(150.px) })
+/* 32.72 */            this.observeComponentCreation({ elmtId, isInitialRender => Image(pixelMap).width(100.percent).objectFit(ImageFit.ScaleDown) }) }
+/* 32.73 */        })
+/* 32.74 */        
+/* 32.75 */        ()
+/* 32.76 */    }
+/* 32.77 */    
+/* 32.78 */    
+/* 32.79 */    public init(parent: Option < CustomView >, width!: Option < ObservedProperty < Int64 >>= None, height!: Option < ObservedProperty < Int64 >>= None, src!: Option < ObservedProperty < String >>= None, pixelMap!: Option < ObservedProperty < PixelMap >>= None, pixelStore!: Option < ObservedProperty < PixelMap >>= None) {
+/* 32.80 */        super(parent)
+/* 32.81 */        
+/* 32.82 */        match(width) {
+/* 32.83 */            case Some(v) => this.width = v.get()
+/* 32.84 */            case _ =>()
+/* 32.85 */        }
+/* 32.86 */        
+/* 32.87 */        match(height) {
+/* 32.88 */            case Some(v) => this.height = v.get()
+/* 32.89 */            case _ =>()
+/* 32.90 */        }
+/* 32.91 */        
+/* 32.92 */        match(src) {
+/* 32.93 */            case Some(v) => this.stateVarDecl_src_ = ObservedProperty < String >("stateVarDecl_src_", v.get())
+/* 32.94 */            case _ =>()
+/* 32.95 */        }
+/* 32.96 */        
+/* 32.97 */        match(pixelMap) {
+/* 32.98 */            case Some(v) => this.stateVarDecl_pixelMap_ = ObservedProperty < PixelMap >("stateVarDecl_pixelMap_", v.get())
+/* 32.99 */            case _ =>()
+/* 32.100 */        }
+/* 32.101 */        
+/* 32.102 */        match(pixelStore) {
+/* 32.103 */            case Some(v) => this.stateVarDecl_pixelStore_ = ObservedProperty < PixelMap >("stateVarDecl_pixelStore_", v.get())
+/* 32.104 */            case _ =>()
+/* 32.105 */        }
+/* 32.106 */        
+/* 32.107 */        
+/* 32.108 */        this.stateVarDecl_src_.subscribeEx(this)
+/* 32.109 */        
+/* 32.110 */        this.stateVarDecl_pixelMap_.subscribeEx(this)
+/* 32.111 */        
+/* 32.112 */        this.stateVarDecl_pixelStore_.subscribeEx(this)
+/* 32.113 */        
+/* 32.114 */        SubscriberManager.getInstance().add(this)
+/* 32.115 */        
+/* 32.116 */        
+/* 32.117 */        this.declareWatch < PixelMap >(stateVarDecl_pixelStore_, imgChanged)
+/* 32.118 */        
+/* 32.119 */        registerSelf()
+/* 32.120 */    }
+/* 32.121 */    
+/* 32.122 */    
+/* 32.123 */    public func aboutToBeDeleted() {
+/* 32.124 */        SubscriberManager.getInstance().delete(this)
+/* 32.125 */    }
+/* 32.126 */    
+/* 32.127 */    
+/* 32.128 */    func updateWithValueParams(width!: Option < Int64 >= Option < Int64 >.None, height!: Option < Int64 >= Option < Int64 >.None, src!: Option < String >= Option < String >.None, pixelMap!: Option < PixelMap >= Option < PixelMap >.None, pixelStore!: Option < PixelMap >= Option < PixelMap >.None): Unit {
+/* 32.129 */        
+/* 32.130 */        match(src) {
+/* 32.131 */            case Some(v) => this.src = v
+/* 32.132 */            case _ =>()
+/* 32.133 */        }
+/* 32.134 */        
+/* 32.135 */        match(pixelMap) {
+/* 32.136 */            case Some(v) => this.pixelMap = v
+/* 32.137 */            case _ =>()
+/* 32.138 */        }
+/* 32.139 */        
+/* 32.140 */        match(pixelStore) {
+/* 32.141 */            case Some(v) => this.pixelStore = v
+/* 32.142 */            case _ =>()
+/* 32.143 */        }
+/* 32.144 */        
+/* 32.145 */    }
+/* 32.146 */    
+/* 32.147 */    
+/* 32.148 */    public func rerender() {
+/* 32.149 */        this.updateDirtyElements()
+/* 32.150 */    }
+/* 32.151 */    
+/* 32.152 */    
+/* 32.153 */    public func purgeVariableDependenciesOnElmtId(rmElmtId: Int64) {
+/* 32.154 */        
+/* 32.155 */        this.stateVarDecl_src_.purgeDependencyOnElmtId(rmElmtId)
+/* 32.156 */        
+/* 32.157 */        this.stateVarDecl_pixelMap_.purgeDependencyOnElmtId(rmElmtId)
+/* 32.158 */        
+/* 32.159 */        this.stateVarDecl_pixelStore_.purgeDependencyOnElmtId(rmElmtId)
+/* 32.160 */        
+/* 32.161 */    }
+/* 32.162 */    
+/* 32.163 */    
+/* 32.164 */}
+/* 32.165 */
+/* 32.166 */public func appEntry_0(): Bool {
+/* 32.167 */    let view = MyView(Option < CustomView >.None)
+/* 32.168 */    loadNativeView(view)
+/* 32.169 */}
+/* 32.170 */
+/* 32.171 */let a_p_1 = CJEntry.getInstance().registerEntry("MyView", appEntry_0)
+/* 32.172 */
+/* ===== End of the Emit ===== */
