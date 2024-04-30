@@ -1195,7 +1195,7 @@ public class Rotate <: PixelMapTransformation {
     var h1 = Float32(hi) / 2.0
     vx = Array<Float32>([-w1, w1, -w1, w1])
     vy = Array<Float32>([-h1, -h1, h1, h1])
-    let rad = -degree / 180.0 * pi
+    let rad = degree / 180.0 * pi
     let c: Float32 = cos(rad)
     let s: Float32 = sin(rad)
 

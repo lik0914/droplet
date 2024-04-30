@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "droplet",
+        "License": "Apache License 2.0",
+        "License File": "LICENSE",
+        "Version Number": "v4.14.2",
+        "Owner": ""
+        "Upstream URL": "https://github.com/bumptech/glide",
+        "Description": "一款专注于平滑滚动的图像加载和缓存库"
+    }
+]
