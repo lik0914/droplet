@@ -38,7 +38,6 @@ public class EngineJob <: DecodeJobCallback & Equatable<EngineJob> {
 
     private let resourceListener: ResourceListener;
     private let engineResourceFactory: EngineResourceFactory = DEFAULT_FACTORY;
-    // let l: ArrayList<Future<Option<InputStream>>> = ArrayList<Future<Option<InputStream>>>()
     private let stateVerifier: StateVerifier = StateVerifier.newInstance();
     public let excutor: GlideExecutor<Option<InputStream>>
 
@@ -99,19 +98,11 @@ public class EngineJob <: DecodeJobCallback & Equatable<EngineJob> {
     }
 
     public func reschedule(job: DecodeJob): Unit {
-        // l.append(excutor.excute(job))
         excutor.execute(job)
     }
 
     public func callCallbackOnResourceReady(cb: ResourceCallback): Unit {
-        // try {
-            // This is overly broad, some Glide code is actually called here, but it's much
-            // simpler to encapsulate here than to do so at the actual call point in the
-            // Request implementation.
             cb.onResourceReady(engineResource.getOrThrow() as AnyGlideResource, dataSource.getOrThrow(), isLoadedFromAlternateCacheKey);
-        // } catch (e: Exception) {
-        //     throw GlideException("callCallbackOnResourceReady error: ${e}");
-        // }
     }
 
     public func onResourceReady(resource: AnyGlideResource, 
@@ -243,7 +234,6 @@ public class EngineJob <: DecodeJobCallback & Equatable<EngineJob> {
                 if(isCancelled) {
                     throw GlideException("Cannot add callbacks to a cancelled EngineJob")
                 }
-            // Preconditions.checkArgument(!isCancelled, "Cannot add callbacks to a cancelled EngineJob");
             }
         }
     }
@@ -251,28 +241,19 @@ public class EngineJob <: DecodeJobCallback & Equatable<EngineJob> {
     public func removeCallback(cb: ResourceCallback): Unit {
         AppLog.error("removeCallback begin")
         synchronized(mtx) {
-            // AppLog.error("removeCallback begin2")
             stateVerifier.throwIfRecycled();
-            // AppLog.error("removeCallback begin22")
             try {
-                // cbs.removeIf({t: ResourceCallbackAndExecutor => 
-                //     return t.cb == cb
-                // });
                 for(i in 0 .. cbs.size) {
                     let f = cbs[i]
-                    // AppLog.error("removeCallback begin222 ${f.cb}")
                     if(f.cb == cb) {
-                        // AppLog.error("removeCallback remove ${f.cb}")
                         cbs.remove(i)
                         break;
                     }
                 }
-                // AppLog.error("removeCallback remove finish")
             } catch(e: Exception) {
                 AppLog.error("removeCallback error: ${e}")
             }
 
-            // AppLog.error("removeCallback begin3")
             if (cbs.isEmpty()) {
                 AppLog.error("removeCallback begin4")
                 cancel();
@@ -321,7 +302,6 @@ public class EngineJob <: DecodeJobCallback & Equatable<EngineJob> {
 
     public func incrementPendingCallbacks(count: Int64): Unit {
         synchronized(mtx) {
-            // Preconditions.checkArgument(isDone(), "Not yet complete!");
             if (pendingCallbacks.fetchAdd(count) == 0 && match(engineResource) {
                 case Some(x) => true
                 case _ => false
@@ -335,10 +315,8 @@ public class EngineJob <: DecodeJobCallback & Equatable<EngineJob> {
         var toRelease: Option<AnyEngineResource> = None;
         synchronized (mtx) {
             stateVerifier.throwIfRecycled();
-            // Preconditions.checkArgument(isDone(), "Not yet complete!");
             pendingCallbacks.fetchSub(1)
             let decremented: Int64 = pendingCallbacks.load();
-            // Preconditions.checkArgument(decremented >= 0, "Can't decrement below 0");
             if (decremented == 0) {
                 toRelease = engineResource;
 
@@ -374,9 +352,7 @@ public class EngineJob <: DecodeJobCallback & Equatable<EngineJob> {
             isLoadedFromAlternateCacheKey = false;
             decodeJob.getOrThrow().release(/*isRemovedFromQueue=*/ false);
             decodeJob = None;
-            // exception = null;
             dataSource = None;
-            // pool.release(this);
         }
         
     }
@@ -436,35 +412,20 @@ public class CallResourceReady <: GlideThread<Option<InputStream>> {
     public func runWrap(): Option<InputStream> {
 
         // Make sure we always acquire the request lock, then the EngineJob lock to avoid deadlock
-      // (b/136032534).
       // TODO cb.getLock()
-//        // synchronized (cb.getLock()) {
-//            AppLog.error("getLock begin ${cb}")
-//            synchronized (this.ej.mtx) {
-//                // AppLog.error("CallResourceReady runWrap contains ${this.ej.cbs.contains(ResourceCallbackAndExecutor(cb, this.ej.excutor))}")
-//                // AppLog.error("cbs size : ${this.ej.cbs.size}")
-//                try {
-//                    // AppLog.error("cbs contains")
-//                    if (this.ej.cbs.contains(ResourceCallbackAndExecutor(cb, this.ej.excutor))) {
-//                        // Acquire for this particular callback.
-//                        // AppLog.error("cbs acquire")
-//                        this.ej.engineResource.getOrThrow().acquire();
-//                        // AppLog.error("cbs callCallbackOnResourceReady")
-//                        this.ej.callCallbackOnResourceReady(cb);
-//                        // AppLog.error("cbs removeCallback")
-//                        this.ej.removeCallback(cb);
-//                    }
-//                    // AppLog.error("decrementPendingCallbacks")
-//                    this.ej.decrementPendingCallbacks();
-//                } catch(e: Exception) {
-//                    AppLog.error("getLock error : ${e}")
-//                }
-//
-//                // AppLog.error("getLock end ${cb}")
-//            }
-//            AppLog.error("getLock end 2")
-//        // }
-        AppLog.error("getLock end 3")
+            AppLog.error("getLock begin ${cb}")
+            synchronized (this.ej.mtx) {
+                try {
+                    if (this.ej.cbs.contains(ResourceCallbackAndExecutor(cb, this.ej.excutor))) {
+                        this.ej.engineResource.getOrThrow().acquire();
+                        this.ej.callCallbackOnResourceReady(cb);
+                        this.ej.removeCallback(cb);
+                    }
+                    this.ej.decrementPendingCallbacks();
+                } catch(e: Exception) {
+                    AppLog.error("getLock error : ${e}")
+                }
+            }
         return None
     }
 
@@ -482,10 +443,7 @@ public class CallResourceReady <: GlideThread<Option<InputStream>> {
     }
 
     public func runWrap(): Option<InputStream> {
-
         // Make sure we always acquire the request lock, then the EngineJob lock to avoid deadlock
-      // (b/136032534).
-        // synchronized (cb.getLock()) {
             synchronized (this.ej.mtx) {
                 if (this.ej.cbs.contains(ResourceCallbackAndExecutor(cb, this.ej.excutor))) {
                     this.ej.callCallbackOnLoadFailed(cb);
@@ -494,7 +452,6 @@ public class CallResourceReady <: GlideThread<Option<InputStream>> {
                 this.ej.decrementPendingCallbacks();
                 return None
             }
-        // }
     }
 
   }
