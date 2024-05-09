@@ -599,8 +599,8 @@ from encoding import url.*
 from std import fs.*
 from std import time.*
 
-//import glide.engine.cache.disk_lru_cache.Entry as DisLruEntry
-//import glide.engine.cache.memory_cache.Entry as LruEntry
+import glide.engine.cache.disk_lru_cache.Entry as DisLruEntry
+import glide.engine.cache.memory_cache.Entry as LruEntry
 
 import zujianbao.*
 import glide.*

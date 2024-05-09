@@ -169,7 +169,7 @@ public class StandardGifDecoder <: GifDecoder {
   }
 
     public func calcSampleSize(targetWidth: Int32, targetHeight: Int32): Unit {
-        let exactSampleSize: Int32 = math.min(getHeight() / getHeight(), getWidth() / targetWidth)
+        let exactSampleSize: Int32 = math.min(getHeight() / targetHeight, getWidth() / targetWidth)
         let powerOfTwoSampleSize: Int32 = if (exactSampleSize == 0) {
             0
         } else {
