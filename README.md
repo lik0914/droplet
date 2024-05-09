@@ -120,8 +120,8 @@ from encoding import url.*
 from std import fs.*
 from std import time.*
 
-//import glide.engine.cache.disk_lru_cache.Entry as DisLruEntry
-//import glide.engine.cache.memory_cache.Entry as LruEntry
+import glide.engine.cache.disk_lru_cache.Entry as DisLruEntry
+import glide.engine.cache.memory_cache.Entry as LruEntry
 
 import zujianbao.*
 import glide.*
@@ -193,7 +193,11 @@ load成功
 
 
 ## 约束与限制
-描述环境限制，版本限制，依赖版本等
+
+当前基于 OpenHarmony Cangjie Mobile1.1.0.B033 版本实现的
+
+1.暂未支持过渡动画
+
 
 ## 开源协议
 Apache License 2.0
