@@ -10,3 +10,5 @@
 /.clang-tidy
 **/.test
 /.appanalyzer
+**/cj_res
+**/*.cj.macrocall
