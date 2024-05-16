@@ -2,14 +2,17 @@
   compile-option = "-B\"${DEVECO_CANGJIE_HOME}/compiler/third_party/llvm/bin\" -B\"${DEVECO_CANGJIE_HOME}/musl/usr/lib/aarch64-linux-ohos\" -L\"${DEVECO_CANGJIE_HOME}/musl/usr/lib/aarch64-linux-ohos\" -L\"${DEVECO_CANGJIE_HOME}/build/linux_ohos_aarch64_llvm/openssl\" --sysroot \"${DEVECO_CANGJIE_HOME}/musl\""
 
 [dependencies]
-  cj_res_entry = {path = "./cj_res", version = "1.0.0"}
+  cj_res_droplet = {path = "./cj_res", version = "1.0.0"}
+
+[ffi.c.glwrapper]
+  path = "../../../library"
 
 [package]
   cjc-version = "0.48.2"
   compile-option = ""
   description = "CangjieUI Application"
   link-option = ""
-  name = "ohos_app_cangjie_entry"
+  name = "droplet"
   output-type = "dynamic"
   src-dir = "src"
   target-dir = ""
