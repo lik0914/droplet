@@ -882,12 +882,10 @@ public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallbac
 
       let d: Any = data.getOrThrow()
 
-      AppLog.error("decodeFromData begin")
       if(d is InputStream) {
         let inputStream: InputStream = (d as InputStream).getOrThrow()
         // asFile downloadOnly
         if(this.transformationKey.tType == TransformationKey.TRANSFORMATION_INPUTSTREAM) {
-          AppLog.error("asFile downloadOnly")
           return (inputStream as DATA)
         }
 
@@ -899,21 +897,17 @@ public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallbac
             case None =>
                 0
         }
-        AppLog.error("hhs size=${size}")
         var arrData: Array<UInt8> = Array<UInt8>(size, item: 0)
 
         inputStream.read(arrData)
-        AppLog.error("arrData: ${arrData.size}")
 
         // TODO 改为判断图片格式 区分gif和静态图片 保存图片格式到drawable
 
         // 解码器列表，进行图片解码
         if(this.transformationKey.tType == TransformationKey.TRANSFORMATION_DRAWABLE) {
-              AppLog.error("transformationKey.tType : TRANSFORMATION_DRAWABLE dataSource: ${dataSource}")
                 result = decodeFromDataSub(dataSource,arrData)
 
         } else if(this.transformationKey.tType == TransformationKey.TRANSFORMATION_PIXELMAP) {
-          AppLog.error("transformationKey.tType : TRANSFORMATION_PIXELMAP")
           let decoders: ArrayList<ResourceDecoder<Array<UInt8>, PixelMap>> = decodeHelper.getPixelMapResourceDecoders()
           
           var i: Int64 = decoders.size - 1
