@@ -754,7 +754,7 @@ public class SingleRequest<R> <: AnySingleRequest & LoadRequest & SizeReadyCallb
             case Status.CLEARED => "CLEARED" 
             case _ => "OTHER"
         }
-    AppLog.error("single request onResourceReady: ${fff} ----  ${canNotifyStatusChanged()} -- ${width} ${height}")
+    AppLog.error("single request onResourceReady: ${fff} ----  ${canNotifyStatusChanged()} -- ${width} ${height} --isLoadedFromAlternateCacheKey=${isLoadedFromAlternateCacheKey}")
 
     var toRelease: Option<AnyGlideResource> = None;
       synchronized (requestLock) {

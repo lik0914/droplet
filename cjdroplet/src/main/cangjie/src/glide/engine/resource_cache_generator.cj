@@ -155,6 +155,7 @@ public class ResourceCacheGenerator <: DataFetcherGenerator {
     }
 
   public func onLoadFailed(e: GlideException): Unit {
+    AppLog.error("GlideException ${e.toString()}")
     cb.onDataFetcherFailed();
 
   }
