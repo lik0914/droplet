@@ -1,6 +1,8 @@
 /*
- * Copyright (c) Huawei Technologies Co., Ltd. 2023-2033. All rights reserved.
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
+ * Description: Droplet for Cangjie API
  */
+
 #ifndef shader_str_h
 #define shader_str_h
 

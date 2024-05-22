@@ -1,6 +1,8 @@
 /*
- * Copyright (c) Huawei Technologies Co., Ltd. 2023-2033. All rights reserved.
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
+ * Description: Droplet for Cangjie API
  */
+
 #ifndef gl_wrapper_h
 #define gl_wrapper_h
 
@@ -114,8 +116,8 @@ extern "C" unsigned int setTask(unsigned int a);
 extern "C" unsigned long int startThread();
 extern "C" void stopThread();
 
-extern "C" unsigned int tfTask(unsigned char* pOut,
-                               unsigned char* pIn,
+extern "C" unsigned int tfTask(uint8_t* pOut,
+                               uint8_t* pIn,
                                float* pparam);
 
 #endif
