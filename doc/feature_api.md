@@ -176,10 +176,19 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * @参数 skip - Bool数据类型
      * @参数 t - T泛型数据类型
      * @返回值 T 泛型数据类型
-     * 备注：暂未转测
      */
     // TODO skipMemoryCache改成disableMemoryCache
     public func skipMemoryCache(skip: Bool, t: T): T
+    
+    /**
+     * 只从缓存取数据。
+     * 
+     * @参数 flag - Bool数据类型
+     * @参数 t - T泛型数据类型
+     * @返回值 T 泛型数据类型
+     */
+    // TODO skipMemoryCache改成disableMemoryCache
+    public func onlyRetrieveFromCachecj(flag:Bool,t:T):T{
 
     /**
      * 只从缓存加载图片资源。
@@ -188,12 +197,49 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * 备注：暂未转测
      */
     public func getOnlyRetrieveFromCache(): Bool
-
+        
     /**
-     * 只从缓存加载图片资源。
+     * 设置图片宽高。
      * 
-     * @返回值 Bool 是否只从缓存加载图片资源
-     * 备注：暂未转测
+     * @参数 width - Int64图片宽度
+     * @参数 height - Int64图片高度
+     */
+    public func setOverride(width:Int64,height:Int64)
+            
+     /**
+     * 获取图片宽度。
+     * 
+     * @返回值 Int64 图片宽度
+     */
+    public func getOverrideWidth():Int64   
+        
+    /**
+     * 获取图片高度。
+     * 
+     * @返回值 Int64 图片高度
+     */
+    public func getOverrideHeight():Int64    
+        
+        
+     /**
+     * 转换图片。
+     * 
+     * @参数 transformation - Transformation<PixelMap>要转换的类型   
+     * @返回值  T 泛型数据类型
+     */
+     public func transform(transformation: Transformation<PixelMap>): T {         
+            
+    /**
+     * 是否设置图片路径
+     * 
+     * @返回值  Bool true设置 false没有
+     */      
+     func getModelSet(): Bool;       
+            
+    /**
+     * 获取磁盘缓存策略。
+     * 
+     * @返回值 DiskCacheStrategy 磁盘缓存策略
      */
     public func getDiskCacheStrategy(): DiskCacheStrategy
     
@@ -249,11 +295,26 @@ public class RequestBuilder<TranscodeType> <: BaseRequestOptions<RequestBuilder<
     public func into(f: (PixelMap) -> Unit, r: (CJResource) -> Unit, width: Int64, height: Int64): Target<TranscodeType>
     
     /**
+     * 加载图片不显示
+     *
+     * @返回值 Target<TranscodeType> - Target<TranscodeType>数据类型
+     */
+    public func submit(): FutureTarget<TranscodeType> 
+    
+    /**
+     * 加载图片指定大小不显示
+     *
+     * @参数 width  Int64，图片宽
+     * @参数 height  Int64，图片高
+     * @返回值 Target<TranscodeType> - Target<TranscodeType>数据类型
+     */
+    public func submit(width: Int64, height: Int64): FutureTarget<TranscodeType>
+
+    /**
      * 为图片请求构建器应用图片加载设置。
      * 
      * @参数 requestOptions - AnyRequestOptions数据类型，请求设置
      * @返回值 RequestBuilder<TranscodeType> 请求构建器
-     * 备注：暂未转测
      */
     public func apply(requestOptions: AnyRequestOptions): RequestBuilder<TranscodeType>
 
@@ -264,6 +325,16 @@ public class RequestBuilder<TranscodeType> <: BaseRequestOptions<RequestBuilder<
      * @返回值 RequestBuilder<TranscodeType> 请求构建器
      */
     public func listener(requestListener: RequestListener<TranscodeType>): RequestBuilder<TranscodeType>
+    
+    
+     /**
+     * 添加请求监听器。
+     *
+     * @参数 requestListener - RequestListener<TranscodeType>数据类型，请求监听器
+     * @返回值 RequestBuilder<TranscodeType> 请求构建器
+     */
+    public func addListener(requestListener: RequestListener<TranscodeType>): RequestBuilder<TranscodeType> {
+    
 }
 ```
 
@@ -292,6 +363,53 @@ public interface RequestListener<R> {
      * @返回值 Boolean 是否消费事件 true：消费事件，停止后续加载流程，不显示错误图 false：继续图片加载流程，显示错误图
      */
     func onLoadFailed(e: GlideException, model: Model, target: Target<R>, isFirstResource: Bool): Bool;
+}
+```
+
+#### 1.6 GifDrawable 
+```cangjie
+public class GifDrawable <: Drawable & Animatable2 & FrameCallback {
+    /**
+     * Gif动画播放次数
+     * 
+     * @参数 loopCount - Int64数据类型播放次数
+     */
+     public func setLoopCount(loopCount: Int64): Unit 
+    
+    /**
+     * 开始播放动图
+     *
+     */
+     public override func start(): Unit 
+    
+     /**
+     * 结束播放动图
+     *
+     */
+     public override func stop(): Unit 
+    
+    
+    /**
+     * 注册动画回调
+     *
+     * @参数 animationCallback - AnimationCallback数据类型 回调方法
+     */
+     public override func registerAnimationCallback(animationCallback: AnimationCallback): Unit 
+
+    /**
+     * 取消注册动画回调
+     *
+     * @参数 animationCallback - AnimationCallback数据类型 回调方法
+     * @返回值 Bool 成功为true 失败false
+     */
+     public override func unregisterAnimationCallback(animationCallback: AnimationCallback): Bool {
+    
+    /**
+     * 清空动画回调
+     *
+     */
+     public override func clearAnimationCallbacks(): Unit {
+            
 }
 ```
 
