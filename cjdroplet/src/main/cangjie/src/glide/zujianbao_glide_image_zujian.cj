@@ -40,6 +40,15 @@ public class GlideRequestOption {
     //transform
     @Publish public var transformCate: Option<PixelMapTransformation> = Option<PixelMapTransformation>.None
     //@Publish var requestListener: Option<(PixelMap) -> Bool> = Option<(PixelMap) -> Bool>.None
+    //是否禁用内存缓存
+    @Publish public var isSkipMemory: Option<Bool> = Option<Bool>.None
+    //Override
+    @Publish public var overrideWH: Option<(Int64,Int64)> = Option<(Int64,Int64)>.None
+    //apply
+    @Publish public var applyRequestOption: Option<RequestOptions> = Option<RequestOptions>.None
+    //只从缓存读取数据
+    @Publish public var onlyRetrieveFromCache: Option<Bool> = Option<Bool>.None
+
 }
 
 @Component
@@ -123,7 +132,20 @@ public class GlideImageZJ {
             if (let Some(v) <- option.strategy) {
                 glide = glide.setDiskCacheStrategy(v)
             }
-            if (let Some(v) <- option.transformCate) {
+
+            if (let Some(v) <- option.onlyRetrieveFromCache) {
+                glide = glide.onlyRetrieveFromCachecj(v,glide)
+            }
+
+            if (let Some(v) <- option.isSkipMemory) {
+                glide = glide.skipMemoryCache(v,glide)
+            }
+
+            if (let Some(v) <- option.overrideWH) {
+                glide = glide.setOverride(v[0],v[1])
+            }
+
+             if (let Some(v) <- option.transformCate) {
                 glide = glide.transform(v)
             }
             //设置占位符
@@ -134,6 +156,10 @@ public class GlideImageZJ {
             if (let Some(v) <- option.errholder) {
                 glide = glide.error(v)
             }
+
+             if (let Some(v) <- option.applyRequestOption) {
+                glide = glide.apply(v)
+             }
 
             glide.listener({drawable: Drawable, model: Model, target: Target<Drawable>, datasource: DataSource, isFirstResource: Bool =>
                                 endFn()
