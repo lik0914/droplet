@@ -18,7 +18,7 @@
   scripts = {}
 
 [target.aarch64-linux-ohos.bin-dependencies]
-  path-option = ["${AARCH64_LIBS}", "${AARCH64_MACRO_LIBS}"]
+  path-option = ["${AARCH64_LIBS}", "${AARCH64_MACRO_LIBS}", "../../../libs/droplet","../../../libs/opengl"]
 package-option = {}
 
 [target.x86_64-unknown-windows-gnu.bin-dependencies]

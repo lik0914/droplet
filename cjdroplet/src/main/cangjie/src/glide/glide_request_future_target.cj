@@ -17,8 +17,8 @@ public class RequestFutureTarget<R> <: FutureTarget<R> & RequestListener<R> {
   private var request: Option<LoadRequest> = None;
   private var loadFailed: Bool = false;
   private var resultReceived: Bool = false;
-  private let width: Int64;
-  private let height: Int64;
+  public let width: Int64;
+  public let height: Int64;
 
   private var exception: GlideException = GlideException("");
 

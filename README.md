@@ -48,12 +48,9 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
 ├── README.md                                 #整体介绍
 ├── doc                                       #文档目录
 │   ├── assets                                #文档资源目录
-│   └── feature_api.md                        # API接口文档
-├── entry\src\main\cangjie\src     # 源码目录
-    ├── gifdecoder                            # gif动图解码
-    ├── glide                                 # 图片处理、缓存等源码
-│   └── zujianbao                             # 自定义组件
-└── test                                      # 测试代码目录
+│   └── feature_api.md                        #API接口文档
+├── cjdroplet                                 #源码目录 
+└── entry                                     #测试用例目录
 ```
 
 ### 接口说明
@@ -68,7 +65,7 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
 描述具体的编译过程：
 
 ```shell
-    第一步.由于该库的transform依赖C的代码，因此首先要用entry/src/main/cpp下的C代码编译成so
+    第一步.由于该库的transform依赖C的代码，因此首先要用cjdroplet/src/main/cpp下的C代码编译成so
       编译方法，新建一个仓颉UI项目，然后在entry/src/main/下面建一个文件夹，这个文件夹是和cangjie文件夹平级的，给他取一个名字比如cjglideOpenGl,然后把刚才的
       C代码，放入这个文件夹，
       然后看新建项目的entry下面的build-profile.json5,在buildOption层级下加上这个
@@ -88,8 +85,8 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
       其中的libglwrapper.so就是我们需要的so，注意libglwrapper这个名字跟你CMakeLists.txt里面的定义有关
     
     第二步
-     在得到第一步的so之后，我们把这个so放入我们项目下的entry/library里面即可
-     然后在entry/src/main/cangjie/cjpm.toml里面添加
+     在得到第一步的so之后，我们把这个so放入我们项目下的cjdroplet/library里面即可
+     然后在cjdroplet/src/main/cangjie/cjpm.toml里面添加
      [ffi.c]
         glwrapper.path = "../../../library"     
     其中glwrapper是so的名字，如果你修改了c代码改了名字，要在这里同步修改，后面那个路径就是根据cjpm.toml的相对路径

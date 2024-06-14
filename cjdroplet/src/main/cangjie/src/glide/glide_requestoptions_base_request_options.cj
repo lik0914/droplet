@@ -494,6 +494,17 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         return t.selfOrThrowIfLocked();
     }
 
+    public func onlyRetrieveFromCachecj(flag:Bool,t:T):T{
+        if(getIsAutoCloneEnabled()){
+            var t2 = clone(t)
+            return t2.onlyRetrieveFromCachecj<T>(true, t2);
+        }
+        t.onlyRetrieveFromCache = flag
+        t.fields |= ONLY_RETRIEVE_FROM_CACHE;
+
+        return t.selfOrThrowIfLocked();
+    }
+
     public func setDiskCacheStrategy(strategy: DiskCacheStrategy): T{
         return setDiskCacheStrategy(strategy, (this as T).getOrThrow())
     }
