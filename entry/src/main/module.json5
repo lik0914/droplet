@@ -3,7 +3,7 @@
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
-    "mainElement": "CangjieAbility",
+    "mainElement": "EntryAbility",
     "deviceTypes": [
       "phone"
     ],
@@ -14,10 +14,11 @@
         "name": "ohos.permission.INTERNET"
       }
     ],
+    "srcEntry": "default.MyAbilityStage",
     "abilities": [
       {
-        "name": "CangjieAbility",
-        "srcEntry": "./cangjie/src/index.cj",
+        "name": "EntryAbility",
+        "srcEntry": "default.MainAbility",
         "description": "$string:EntryAbility_desc",
         "icon": "$media:layered_image",
         "label": "$string:EntryAbility_label",

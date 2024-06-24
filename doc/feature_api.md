@@ -82,20 +82,6 @@ public class Glide {
      */
     public func onDisAppear(key: String): Unit
     
-    /**
-     * 清空内存缓存。
-     * 
-     * 备注：暂未转测
-     */
-    public func clearMemory(): Unit
-    
-    /**
-     * 根据内存使用情况清理内存缓存。
-     * 
-     * @参数 level - Int64数据类型，内存使用级别
-     * 备注：暂未转测
-     */
-    public func trimMemory(level: Int64): Unit
 }
 ```
 
@@ -135,7 +121,6 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
      * 
      * @参数 requestOptions - RequestOptions数据类型，请求设置
      * @返回值 RequestManager 图片请求管理器
-     * 备注：暂未转测
      */
     public func useDefaultRequestOptions(requestOptions: RequestOptions): RequestManager
 }
@@ -177,7 +162,6 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * @参数 t - T泛型数据类型
      * @返回值 T 泛型数据类型
      */
-    // TODO skipMemoryCache改成disableMemoryCache
     public func skipMemoryCache(skip: Bool, t: T): T
     
     /**
@@ -187,14 +171,12 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * @参数 t - T泛型数据类型
      * @返回值 T 泛型数据类型
      */
-    // TODO skipMemoryCache改成disableMemoryCache
     public func onlyRetrieveFromCachecj(flag:Bool,t:T):T{
 
     /**
      * 只从缓存加载图片资源。
      * 
      * @返回值 Bool 是否只从缓存加载图片资源
-     * 备注：暂未转测
      */
     public func getOnlyRetrieveFromCache(): Bool
         
@@ -234,7 +216,7 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * 
      * @返回值  Bool true设置 false没有
      */      
-     func getModelSet(): Bool;       
+    public func getModelSet(): Bool;       
             
     /**
      * 获取磁盘缓存策略。

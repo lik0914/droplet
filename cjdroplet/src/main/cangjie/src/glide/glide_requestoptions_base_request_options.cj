@@ -1,14 +1,11 @@
 package glide
 
-
 from std import collection.*
-
 from ohos import image.*
 from ohos import component.*
 from ohos import base.*
 
 public interface AnyRequestOptions {
-
     func getFields(): Int64
 
     func getTransformationAllowed(): Bool
@@ -19,11 +16,7 @@ public interface AnyRequestOptions {
 
     func getSizeMultiplier(): Float32
     func getPlaceholderDrawable(): Option<CJResourceDrawable>
-    // func getPlaceholderId(): Int64
     func getErrorPlaceholderDrawable(): Option<CJResourceDrawable>
-    // func getErrorId(): Int64
-    // func getFallbackDrawable(): Option<CJResourceDrawable>
-    // func getFallbackId(): Int64
 
     func getOverrideWidth(): Int64
     func getOverrideHeight(): Int64
@@ -53,17 +46,14 @@ public interface AnyRequestOptions {
 public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequestOptions<T> {
 
     // 选项设置标记
-
     protected static let SIZE_MULTIPLIER = 1 << 1;
     // 硬盘缓存策略
     protected static let DISK_CACHE_STRATEGY = 1 << 2;
     protected static let PRIORITY = 1 << 3;
     // 错误图片
     protected static let ERROR_PLACEHOLDER = 1 << 4;
-    // protected static let ERROR_ID = 1 << 5;
     // 占位图
     protected static let PLACEHOLDER = 1 << 6;
-    // protected static let PLACEHOLDER_ID = 1 << 7;
     // 是否使用内存缓存
     protected static let IS_CACHEABLE = 1 << 8;
     // 覆盖宽高
@@ -77,13 +67,8 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
     protected static let TRANSFORMATION_REQUIRED = 1 << 17;
 
     protected static let RESOURCE_CLASS = 1 << 12;
-    // protected static let FALLBACK = 1 << 13;
-    // protected static let FALLBACK_ID = 1 << 14;
-    // protected static let THEME = 1 << 15;
 
-    // protected static let USE_UNLIMITED_SOURCE_GENERATORS_POOL = 1 << 18;
     protected static let ONLY_RETRIEVE_FROM_CACHE = 1 << 19;
-    // protected static let USE_ANIMATION_POOL = 1 << 20;
 
     public var sizeMultiplier: Float32 = 1.0f32;
 
@@ -104,16 +89,12 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
 
     public var resourceTypeClass: ResourceTypeClass = ResourceTypeClass.RESOURCE_TYPE_NONE
 
-    public var transformations: CachedHashCodeArrayMap<TransformationKey, AnyKey> = CachedHashCodeArrayMap<TransformationKey, AnyKey>();
+    public var transformations: CachedHashCodeArrayMap<TransformationKey, AnyKey> = CachedHashCodeArrayMap<TransformationKey, AnyKey>(
+        );
 
     public var errorPlaceholder: Option<CJResourceDrawable> = None;
 
-    // public var errorId: Int64 = 0;
     public var placeholderDrawable: Option<CJResourceDrawable> = None;
-    // public var placeholderId: Int64 = 0;
-
-    // public var fallbackDrawable: Option<CJResourceDrawable> = None;
-    // public var fallbackId: Int64 = 0;
 
     public var priority: Priority = Priority.NORMAL;
     public var isCacheable: Bool = true
@@ -172,7 +153,6 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
     }
 
     public func getTransformations(): CachedHashCodeArrayMap<TransformationKey, AnyKey> {
-        AppLog.error("getTransformations : ${transformations}")
         return transformations;
     }
 
@@ -181,10 +161,16 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
             var t2 = clone(t)
             return t2.set(option, value, t2);
         }
-
-        // Preconditions.checkNotNull(option);
-        // Preconditions.checkNotNull(value);
         t.options.set<V>(option, value);
+        return selfOrThrowIfLocked();
+    }
+
+    public func setOptions(option: String, value: String, t: T): T {
+        if (getIsAutoCloneEnabled()) {
+            var t2 = clone(t)
+            return t2.setOptions(option, value, t2);
+        }
+        t.options.setOptions(option, value);
         return selfOrThrowIfLocked();
     }
 
@@ -193,7 +179,6 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
     }
 
     public func setSizeMultiplier(sizeMultiplier: Float32, t: T): T {
-
         if (getIsAutoCloneEnabled()) {
             var t2 = clone(t)
             return t2.setSizeMultiplier(sizeMultiplier, t2);
@@ -202,10 +187,29 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         if (sizeMultiplier < 0.0 || sizeMultiplier > 1.0) {
             throw IllegalArgumentException("sizeMultiplier must be between 0 and 1");
         }
-        t.sizeMultiplier = sizeMultiplier;
-        t.fields |= SIZE_MULTIPLIER;
+        t.sizeMultiplier = sizeMultiplier
+        t.fields |= SIZE_MULTIPLIER
 
         return selfOrThrowIfLocked();
+    }
+
+    public func dontTransform(): T {
+        dontTransform((this as T).getOrThrow())
+    }
+
+    public func dontTransform(t: T): T {
+        if (getIsAutoCloneEnabled()) {
+            var t2 = clone(t)
+            return t2.dontTransform(t2);
+        }
+        transformations.clear()
+        fields &= !TRANSFORMATION
+        isTransformationAllowed = false
+        fields &= !TRANSFORMATION_REQUIRED
+        isTransformationAllowed = false
+        fields &= !TRANSFORMATION_ALLOWED
+        isScaleOnlyOrNoTransform = true
+        return selfOrThrowIfLocked()
     }
 
     public func getTransformationAllowed(): Bool {
@@ -220,25 +224,13 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         return errorPlaceholder;
     }
 
-    // public func getErrorId(): Int64 {
-    //     return errorId;
-    // }
-
-    // public func getPlaceholderId(): Int64 {
-    //     return placeholderId;
-    // }
-
     public func getPlaceholderDrawable(): Option<CJResourceDrawable> {
         return placeholderDrawable;
     }
 
-    // public func getFallbackId(): Int64 {
-    //     return fallbackId;
-    // }
-
-    // public func getFallbackDrawable(): Option<CJResourceDrawable> {
-    //     return fallbackDrawable;
-    // }
+    public func isDiskCacheStrategySet(): Bool {
+        return isSet(DISK_CACHE_STRATEGY);
+    }
 
     public func isPrioritySet(): Bool {
         return isSet(PRIORITY);
@@ -252,34 +244,13 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         if (o is AnyRequestOptions) {
             var other: AnyRequestOptions = (o as AnyRequestOptions).getOrThrow();
 
-            // AppLog.error("base requestOptions equals: sizeMultiplier ${other.getSizeMultiplier() == sizeMultiplier}")
-            // AppLog.error("base requestOptions equals: isCacheable ${isCacheable == other.getCacheable()}")
-            // AppLog.error("base requestOptions equals: overrideHeight ${overrideHeight == other.getOverrideHeight()}")
-            // AppLog.error("base requestOptions equals: overrideWidth ${overrideWidth == other.getOverrideWidth()}")
-            // AppLog.error("base requestOptions equals: isTransformationRequired ${isTransformationRequired == other.getTransformationRequired()}")
-            // AppLog.error("base requestOptions equals: isTransformationAllowed ${isTransformationAllowed == other.getTransformationAllowed()}")
-            // AppLog.error("base requestOptions equals: onlyRetrieveFromCache ${onlyRetrieveFromCache == other.getOnlyRetrieveFromCache()}")
-            // AppLog.error("base requestOptions equals: diskCacheStrategy ${diskCacheStrategy.equals(other.getDiskCacheStrategy())}")
-            // AppLog.error("base requestOptions equals: priority ${priority == other.getPriority()}")
-            // AppLog.error("base requestOptions equals: options ${options == other.getOptions()}")
-            // AppLog.error("base requestOptions equals: transformations ${transformations == other.getTransformations()}")
-            // AppLog.error("base requestOptions equals: ${transformations} --- ${other.getTransformations()}")
-            // AppLog.error("base requestOptions equals: resourceTypeClass ${resourceTypeClass == other.getResourceTypeClass()}")
-            // AppLog.error("base requestOptions equals: signature ${signature == other.getSignature()}")
             return other.getSizeMultiplier() == sizeMultiplier
-                // && errorId == other.errorId
-                // && errorPlaceholder == other.getErrorPlaceholderDrawable()
-                // && placeholderId == other.placeholderId
-                // && placeholderDrawable ==  other.placeholderDrawable
-                // && fallbackId == other.fallbackId
-                // && fallbackDrawable == other.fallbackDrawable
                 && isCacheable == other.getCacheable()
                 && overrideHeight == other.getOverrideHeight()
                 && overrideWidth == other.getOverrideWidth()
                 && isTransformationRequired == other.getTransformationRequired()
                 && isTransformationAllowed == other.getTransformationAllowed()
                 // TODO useUnlimitedSourceGeneratorsPool
-                // && useUnlimitedSourceGeneratorsPool == other.useUnlimitedSourceGeneratorsPool
                 && onlyRetrieveFromCache == other.getOnlyRetrieveFromCache()
                 && diskCacheStrategy.equals(other.getDiskCacheStrategy())
                 && priority == other.getPriority()
@@ -287,9 +258,8 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
                 && transformations == other.getTransformations()
                 && resourceTypeClass == other.getResourceTypeClass()
                 && signature == other.getSignature()
-                // && Util.bothNullOrEqual(theme, other.theme);
-            }
-            return false;
+        }
+        return false;
     }
 
     protected func selfOrThrowIfLocked(): T {
@@ -323,51 +293,38 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         t.sizeMultiplier = this.sizeMultiplier
         t.diskCacheStrategy = this.diskCacheStrategy
         t.priority = this.priority
-        // t.errorPlaceholder = this.errorPlaceholder
-        // t.errorId = this.errorId
-        // t.placeholderDrawable = this.placeholderDrawable
-        // t.placeholderId = this.placeholderId
         t.isCacheable = this.isCacheable
-        // t.overrideHeight = this.overrideHeight
-        // t.overrideWidth = this.overrideWidth
         t.signature = this.signature
         t.isTransformationRequired = this.isTransformationRequired
         t.isTransformationAllowed = this.isTransformationAllowed
-        // t.fallbackDrawable = this.fallbackDrawable
-        // t.fallbackId = this.fallbackId
-        // t.resourceClass = this.resourceClass
         t.isScaleOnlyOrNoTransform = this.isScaleOnlyOrNoTransform
 
         let tempOptions = this.options
-        t.options = GlideOptions();
+        t.options = GlideOptions()
         t.options.putAll(tempOptions);
         let tempTrans = this.transformations
-        t.transformations = CachedHashCodeArrayMap<TransformationKey, AnyKey>();
+        t.transformations = CachedHashCodeArrayMap<TransformationKey, AnyKey>()
         t.transformations.putAll(tempTrans);
-        t.isLocked = false;
-        t.isAutoCloneEnabled = false;
+        t.isLocked = false
+        t.isAutoCloneEnabled = false
 
         return t
     }
 
     public func autoClone(): T {
         if (isLocked && !isAutoCloneEnabled) {
-        throw IllegalStateException(
-            "You cannot auto lock an already locked options object" + ", try clone() first");
+            throw IllegalStateException("You cannot auto lock an already locked options object" + ", try clone() first");
         }
-        isAutoCloneEnabled = true;
+        isAutoCloneEnabled = true
         return lock();
     }
 
     public func lock(): T {
-        isLocked = true;
+        isLocked = true
         // This is the only place we should not check locked.
         return self();
     }
 
-    // public func apply(v: AnyRequestOptions): T {
-
-    // }
 
     public func apply(v: AnyRequestOptions, t: T): T {
         if (getIsAutoCloneEnabled()) {
@@ -378,106 +335,60 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
 
         // TODO
         if (isSetStatic(other.getFields(), SIZE_MULTIPLIER)) {
-            t.sizeMultiplier = other.getSizeMultiplier();
+            t.sizeMultiplier = other.getSizeMultiplier()
         }
-        // if (isSetStatic(other.getFields(), USE_UNLIMITED_SOURCE_GENERATORS_POOL)) {
-        //     // t.useUnlimitedSourceGeneratorsPool = other.useUnlimitedSourceGeneratorsPool;
-        // }
-        // if (isSetStatic(other.getFields(), USE_ANIMATION_POOL)) {
-        //     // t.useAnimationPool = other.useAnimationPool;
-        // }
         if (isSetStatic(other.getFields(), DISK_CACHE_STRATEGY)) {
-            t.diskCacheStrategy = other.getDiskCacheStrategy();
-            // AppLog.error("apply DISK_CACHE_STRATEGY: ${t.diskCacheStrategy}")
+            t.diskCacheStrategy = other.getDiskCacheStrategy()
         }
         if (isSetStatic(other.getFields(), PRIORITY)) {
-            t.priority = other.getPriority();
+            t.priority = other.getPriority()
         }
         if (isSetStatic(other.getFields(), ERROR_PLACEHOLDER)) {
-            t.errorPlaceholder = other.getErrorPlaceholderDrawable();
-            // t.errorId = 0;
-
-            // t.fields &= ~ERROR_ID;
-            // t.fields &= !ERROR_ID;
+            t.errorPlaceholder = other.getErrorPlaceholderDrawable()
         }
-        // if (isSetStatic(other.getFields(), ERROR_ID)) {
-        //     // t.errorId = other.errorId;
-        //     // t.errorPlaceholder = null;
-        //     // t.fields &= ~ERROR_PLACEHOLDER;
-        //     t.fields &= !ERROR_PLACEHOLDER;
-        // }
         if (isSetStatic(other.getFields(), PLACEHOLDER)) {
-            t.placeholderDrawable = other.getPlaceholderDrawable();
-            // t.placeholderId = 0;
-            // t.fields &= ~PLACEHOLDER_ID;
-            // t.fields &= !PLACEHOLDER_ID;
+            t.placeholderDrawable = other.getPlaceholderDrawable()
         }
-        // if (isSetStatic(other.getFields(), PLACEHOLDER_ID)) {
-        //     // placeholderId = other.placeholderId;
-        //     // placeholderDrawable = null;
-        //     // fields &= ~PLACEHOLDER;
 
-        //     t.fields &= !PLACEHOLDER;
-        // }
         if (isSetStatic(other.getFields(), IS_CACHEABLE)) {
-            t.isCacheable = other.getCacheable();
+            t.isCacheable = other.getCacheable()
         }
         if (isSetStatic(other.getFields(), OVERRIDE)) {
-            t.overrideWidth = other.getOverrideWidth();
-            t.overrideHeight = other.getOverrideHeight();
+            t.overrideWidth = other.getOverrideWidth()
+            t.overrideHeight = other.getOverrideHeight()
         }
         if (isSetStatic(other.getFields(), SIGNATURE)) {
-            t.signature = other.getSignature();
+            t.signature = other.getSignature()
         }
         if (isSetStatic(other.getFields(), RESOURCE_CLASS)) {
-            // t.resourceClass = other.resourceClass;
-            t.resourceTypeClass = other.getResourceTypeClass();
+            t.resourceTypeClass = other.getResourceTypeClass()
         }
-        // if (isSetStatic(other.getFields(), FALLBACK)) {
-        //     // fallbackDrawable = other.fallbackDrawable;
-        //     // fallbackId = 0;
-        //     // fields &= ~FALLBACK_ID;
-        //     t.fields &= !FALLBACK_ID;
-        // }
-        // if (isSetStatic(other.getFields(), FALLBACK_ID)) {
-        //     // fallbackId = other.fallbackId;
-        //     // fallbackDrawable = null;
-        //     // fields &= ~FALLBACK;
-        //     t.fields &= !FALLBACK;
-        // }
-        // if (isSetStatic(other.getFields(), THEME)) {
-        //     // t.theme = other.theme;
-        // }
         if (isSetStatic(other.getFields(), TRANSFORMATION_ALLOWED)) {
-            t.isTransformationAllowed = other.getTransformationAllowed();
+            t.isTransformationAllowed = other.getTransformationAllowed()
         }
         if (isSetStatic(other.getFields(), TRANSFORMATION_REQUIRED)) {
-            t.isTransformationRequired = other.getTransformationRequired();
+            t.isTransformationRequired = other.getTransformationRequired()
         }
         if (isSetStatic(other.getFields(), TRANSFORMATION)) {
             t.transformations.putAll(other.getTransformations());
-            t.isScaleOnlyOrNoTransform = other.getScaleOnlyOrNoTransform();
+            t.isScaleOnlyOrNoTransform = other.getScaleOnlyOrNoTransform()
         }
         if (isSetStatic(other.getFields(), ONLY_RETRIEVE_FROM_CACHE)) {
-            t.onlyRetrieveFromCache = other.getOnlyRetrieveFromCache();
+            t.onlyRetrieveFromCache = other.getOnlyRetrieveFromCache()
         }
 
         // // Applying options with dontTransform() is expected to clear our transformations.
         if (!t.isTransformationAllowed) {
             t.transformations.clear();
-            // fields &= ~TRANSFORMATION;
-            t.fields &= !TRANSFORMATION;
-            t.isTransformationRequired = false;
-            // fields &= ~TRANSFORMATION_REQUIRED;
-            t.fields &= !TRANSFORMATION_REQUIRED;
-            t.isScaleOnlyOrNoTransform = true;
+            t.fields &= !TRANSFORMATION
+            t.isTransformationRequired = false
+            t.fields &= !TRANSFORMATION_REQUIRED
+            t.isScaleOnlyOrNoTransform = true
         }
 
-        t.fields |= other.getFields();
+        t.fields |= other.getFields()
 
-        // AppLog.error("apply t options: ${t.options} other options: ${other.getOptions()}")
         t.options.putAll(other.getOptions());
-        // AppLog.error("apply t options after: ${t.options}")
         return t.selfOrThrowIfLocked();
     }
 
@@ -488,41 +399,35 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
             return t2.skipMemoryCache<T>(true, t2);
         }
 
-        t.isCacheable = !skip;
-        t.fields |= IS_CACHEABLE;
+        t.isCacheable = !skip
+        t.fields |= IS_CACHEABLE
 
         return t.selfOrThrowIfLocked();
     }
 
-    public func onlyRetrieveFromCachecj(flag:Bool,t:T):T{
-        if(getIsAutoCloneEnabled()){
+    public func onlyRetrieveFromCachecj(flag: Bool, t: T): T {
+        if (getIsAutoCloneEnabled()) {
             var t2 = clone(t)
             return t2.onlyRetrieveFromCachecj<T>(true, t2);
         }
         t.onlyRetrieveFromCache = flag
-        t.fields |= ONLY_RETRIEVE_FROM_CACHE;
+        t.fields |= ONLY_RETRIEVE_FROM_CACHE
 
         return t.selfOrThrowIfLocked();
     }
 
-    public func setDiskCacheStrategy(strategy: DiskCacheStrategy): T{
+    public func setDiskCacheStrategy(strategy: DiskCacheStrategy): T {
         return setDiskCacheStrategy(strategy, (this as T).getOrThrow())
     }
 
     public func setDiskCacheStrategy(strategy: DiskCacheStrategy, t: T): T {
-        // AppLog.error("setDiskCacheStrategy")
-        // AppLog.error("setDiskCacheStrategy t.options1: ${t.options} ori: ${this.options}")
         if (getIsAutoCloneEnabled()) {
-            // AppLog.error("getIsAutoCloneEnabled")
             var t2 = clone(t)
-            // AppLog.error("t2 ${t2.options}")
             return t2.setDiskCacheStrategy(strategy, t2);
         }
 
-        // AppLog.error("setDiskCacheStrategy t.options2: ${t.options} ori: ${this.options}")
-
-        t.diskCacheStrategy = strategy;
-        t.fields |= DISK_CACHE_STRATEGY;
+        t.diskCacheStrategy = strategy
+        t.fields |= DISK_CACHE_STRATEGY
 
         return t.selfOrThrowIfLocked();
     }
@@ -537,21 +442,34 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
             return t2.setOverride(width, height, t2);
         }
 
-        t.overrideWidth = width;
-        t.overrideHeight = height;
-        fields |= OVERRIDE;
+        t.overrideWidth = width
+        t.overrideHeight = height
+        fields |= OVERRIDE
 
         return t.selfOrThrowIfLocked();
     }
 
+    public func setSignature(signature: AnyKey, t: T): T {
+        if (getIsAutoCloneEnabled()) {
+            var t2 = clone(t)
+            return t2.setSignature(signature, t2);
+        }
+        t.signature = signature
+        fields |= SIGNATURE
+        return t.selfOrThrowIfLocked();
+    }
+
+    public func setSignature(signature: AnyKey): T {
+        return setSignature(signature, (this as T).getOrThrow())
+    }
 
     public func optionalCenterInside(): T {
         return optionalCenterInside((this as T).getOrThrow())
     }
 
     /**
-    * 转换失败时直接返回原图
-    */
+     * 转换失败时直接返回原图
+     */
     public func optionalCenterInside(t: T): T {
         return optionalScaleOnlyTransform(DownsampleStrategy.CENTER_INSIDE, CenterInside(), t);
     }
@@ -561,8 +479,8 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
     }
 
     /**
-    * 转换失败时报错
-    */
+     * 转换失败时报错
+     */
     public func centerInside(t: T): T {
         return scaleOnlyTransform(DownsampleStrategy.CENTER_INSIDE, CenterInside(), t);
     }
@@ -595,22 +513,23 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         return optionalScaleOnlyTransform(DownsampleStrategy.FIT_CENTER, FitCenter(), t);
     }
 
-    private func optionalScaleOnlyTransform(strategy: DownsampleStrategy ,transformation: Transformation<PixelMap>, t: T): T {
-        return scaleOnlyTransform(strategy, transformation, false /*isTransformationRequired*/, t);
+    private func optionalScaleOnlyTransform(strategy: DownsampleStrategy, transformation: Transformation<PixelMap>, t: T): T {
+        return scaleOnlyTransform(strategy, transformation, false /*isTransformationRequired*/ , t);
     }
 
     private func scaleOnlyTransform(strategy: DownsampleStrategy, transformation: Transformation<PixelMap>, t: T): T {
         return scaleOnlyTransform(strategy, transformation, true, t);
     }
 
-    private func scaleOnlyTransform(strategy: DownsampleStrategy, transformation: Transformation<PixelMap>, isTransformationRequired: Bool, t: T): T {
+    private func scaleOnlyTransform(strategy: DownsampleStrategy, transformation: Transformation<PixelMap>,
+        isTransformationRequired: Bool, t: T): T {
         var result: BaseRequestOptions<T>
-        if(isTransformationRequired) {
+        if (isTransformationRequired) {
             result = transform(strategy, transformation, t)
         } else {
-            result = optionalTransform(strategy, transformation, t);
+            result = optionalTransform(strategy, transformation, t)
         }
-        result.isScaleOnlyOrNoTransform = true;
+        result.isScaleOnlyOrNoTransform = true
         return (result as T).getOrThrow();
     }
 
@@ -643,11 +562,13 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
     }
 
     public func downsample(strategy: DownsampleStrategy): T {
-        // var s1 = (DownsampleStrategy.OPTION as GlideOption<AnyGlideOption>).getOrThrow()
-        // AppLog.error("downsample set")
         var s2 = (this as T).getOrThrow()
 
         return set<DownsampleStrategy>(DownsampleStrategy.OPTION, strategy, s2);
+    }
+
+    public func transforms(transformations: ArrayList<PixelMapTransformation>) {
+        return transform(MultiTransformation(transformations))
     }
 
     public func transform(transformation: Transformation<PixelMap>): T {
@@ -664,19 +585,16 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
             return t2.transform(transformation, isRequired, t2);
         }
 
-        // var drawableTransformation: DrawableTransformation = DrawableTransformation(transformation, isRequired);
-        t.transform<PixelMap>(TransformationKey(TransformationKey.TRANSFORMATION_PIXELMAP), transformation, isRequired, t);
+        t.transform<PixelMap>(TransformationKey(TransformationKey.TRANSFORMATION_PIXELMAP), transformation, isRequired,
+            t);
         let drawableTransformation: DrawableTransformation = DrawableTransformation(transformation, isRequired);
-        t.transform<PixelMapDrawable>(TransformationKey(TransformationKey.TRANSFORMATION_DRAWABLE), drawableTransformation, isRequired, t);
-        // transform(TransformationKey(TransformationKey.TRANSFORMATION_INPUTSTREAM), transformation, isRequired, t);
+        t.transform<PixelMapDrawable>(TransformationKey(TransformationKey.TRANSFORMATION_DRAWABLE),
+            drawableTransformation, isRequired, t);
 
-        // transform(Drawable.class, drawableTransformation, isRequired);
         // TODO: remove BitmapDrawable decoder and this transformation.
         // Registering as BitmapDrawable is simply an optimization to avoid some iteration and
         // isAssignableFrom checks when obtaining the transformation later on. It can be removed without
         // affecting the functionality.
-        // transform(BitmapDrawable.class, drawableTransformation.asBitmapDrawable(), isRequired);
-        // transform(GifDrawable.class, new GifDrawableTransformation(transformation), isRequired);
         return selfOrThrowIfLocked();
     }
 
@@ -686,19 +604,16 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
             return t2.transform(resourceClass, transformation, isRequired, t2);
         }
 
-        // Preconditions.checkNotNull(resourceClass);
-        // Preconditions.checkNotNull(transformation);
-        AppLog.error("put transform : ${transformation}")
         t.transformations.put(resourceClass, transformation);
-        t.fields |= TRANSFORMATION;
-        t.isTransformationAllowed = true;
-        t.fields |= TRANSFORMATION_ALLOWED;
+        t.fields |= TRANSFORMATION
+        t.isTransformationAllowed = true
+        t.fields |= TRANSFORMATION_ALLOWED
         // Always set to false here. Known scale only transformations will call this method and then
         // set isScaleOnlyOrNoTransform to true immediately after.
-        t.isScaleOnlyOrNoTransform = false;
+        t.isScaleOnlyOrNoTransform = false
         if (isRequired) {
-            t.fields |= TRANSFORMATION_REQUIRED;
-            t.isTransformationRequired = true;
+            t.fields |= TRANSFORMATION_REQUIRED
+            t.isTransformationRequired = true
         }
         return t.selfOrThrowIfLocked();
     }
@@ -713,30 +628,20 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
             return t2.decode(resourceTypeClass, t2);
         }
 
-        t.resourceTypeClass = resourceTypeClass;
-        t.fields |= RESOURCE_CLASS;
+        t.resourceTypeClass = resourceTypeClass
+        t.fields |= RESOURCE_CLASS
         return t.selfOrThrowIfLocked();
     }
 
     public func placeholder(res: CJResource): T {
-
-        this.placeholderDrawable = Some(CJResourceDrawable(res));
-        fields |= PLACEHOLDER;
-
-        // placeholderId = 0;
-        // fields &= !PLACEHOLDER_ID;
-
+        this.placeholderDrawable = Some(CJResourceDrawable(res))
+        fields |= PLACEHOLDER
         return self();
     }
 
     public func error(res: CJResource): T {
-
-        this.errorPlaceholder = Some(CJResourceDrawable(res));
-        fields |= ERROR_PLACEHOLDER;
-
-        // this.errorId = 0;
-        // fields &= !ERROR_ID;
-
+        this.errorPlaceholder = Some(CJResourceDrawable(res))
+        fields |= ERROR_PLACEHOLDER
         return self();
     }
 }
