@@ -6,24 +6,25 @@ from ohos import image.*
 from ohos import base.*
 
 public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleListener & Equatable<RequestManager> {
-    private static let DECODE_TYPE_BITMAP: RequestOptions = RequestOptions.decodeTypeOf(ResourceTypeClass.RESOURCE_TYPE_PIXELMAP).lock();
-    
-    private static let DECODE_TYPE_GIF: RequestOptions = RequestOptions.decodeTypeOf(ResourceTypeClass.RESOURCE_TYPE_GIFDRAWABLE).lock();
-    
-    // private static let DOWNLOAD_ONLY_OPTIONS: RequestOptions = diskCacheStrategyOf(DiskCacheStrategy.DATA).priority(Priority.LOW).skipMemoryCache(true);
+    private static let DECODE_TYPE_BITMAP: RequestOptions = RequestOptions.decodeTypeOf(
+        ResourceTypeClass.RESOURCE_TYPE_PIXELMAP).lock();
+
+    private static let DECODE_TYPE_GIF: RequestOptions = RequestOptions.decodeTypeOf(
+        ResourceTypeClass.RESOURCE_TYPE_GIFDRAWABLE).lock();
+
     private var requestOptions: RequestOptions
 
-    protected let glide: Glide;
-    protected let context: AbilityContext;
-    public var requestManagerKey: String;
-    public var lifecycle: Lifecycle;
+    protected let glide: Glide
+    protected let context: AbilityContext
+    public var requestManagerKey: String
+    public var lifecycle: Lifecycle
 
     private let mtx = ReentrantMutex()
 
     // TODO CopyOnWriteArrayList
     private let defaultRequestListeners: ArrayList<RequestListener<Any>> = ArrayList<RequestListener<Any>>();
 
-    private let requestTracker: RequestTracker;
+    private let requestTracker: RequestTracker
     private let targetTracker: TargetTracker = TargetTracker();
 
     public init(glide: Glide, lifecycle: Lifecycle, context: AbilityContext, key: String) {
@@ -32,8 +33,8 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
         this.lifecycle = lifecycle
         this.requestManagerKey = key
         var toSet = glide.getGlideContext().getDefaultRequestOptions()
-        requestOptions = toSet.clone(toSet).autoClone();
-        requestTracker = RequestTracker();
+        requestOptions = toSet.clone(toSet).autoClone()
+        requestTracker = RequestTracker()
         lifecycle.addListener(this)
         glide.registerRequestManager(this);
     }
@@ -44,20 +45,26 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
 
     protected func setRequestOptions(toSet: RequestOptions) {
         synchronized(mtx) {
-            requestOptions = toSet.clone(toSet).autoClone();
+            requestOptions = toSet.clone(toSet).autoClone()
         }
     }
 
     private func updateRequestOptions(toUpdate: RequestOptions) {
-        synchronized (mtx) {
-            requestOptions = requestOptions.apply((toUpdate as AnyRequestOptions).getOrThrow(), requestOptions);
+        synchronized(mtx) {
+            requestOptions = requestOptions.apply((toUpdate as AnyRequestOptions).getOrThrow(), requestOptions)
         }
     }
 
     public func useDefaultRequestOptions(requestOptions: RequestOptions): RequestManager {
-        synchronized (mtx) {
+        synchronized(mtx) {
             updateRequestOptions(requestOptions);
             return this;
+        }
+    }
+
+    public func getDefaultRequestOptions() {
+        synchronized(mtx) {
+            return requestOptions
         }
     }
 
@@ -66,7 +73,8 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
     }
 
     public func decodeAsPixelMap() {
-        return decodeAs<PixelMap>(TransformationKey(TransformationKey.TRANSFORMATION_PIXELMAP)).apply(DECODE_TYPE_BITMAP);
+        return decodeAs<PixelMap>(TransformationKey(TransformationKey.TRANSFORMATION_PIXELMAP)).apply(
+            DECODE_TYPE_BITMAP);
     }
 
     public func load(model: Model): RequestBuilder<Drawable> {
@@ -101,7 +109,7 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
         var isOwnedByUs: Bool = untrack(t);
 
         var request: Option<LoadRequest> = t.getRequest();
-        var requestNotNone: Bool = match(request) {
+        var requestNotNone: Bool = match (request) {
             case Some(x) => true
             case _ => false
         }
@@ -123,13 +131,13 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
         synchronized(mtx) {
             var request: Option<LoadRequest> = t.getRequest();
             // If the Target doesn't have a request, it's already been cleared.
-            if (match(request) {
+            if (match (request) {
                 case Some(x) => false
                 case _ => true
             }) {
                 return true;
             }
-            
+
             if (requestTracker.clearAndRemove(request.getOrThrow())) {
                 targetTracker.untrack(t);
                 t.setRequest(Option<LoadRequest>.None);
@@ -187,13 +195,11 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
                 requestTracker.clearRequests();
                 lifecycle.removeListener(this);
                 // TODO 网络管理
-                // lifecycle.removeListener(connectivityMonitor);
                 glide.unregisterRequestManager(this);
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 AppLog.error("request manager error: ${e}")
                 throw e
             }
-            
         }
     }
 
@@ -210,14 +216,14 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
     }
 
     public operator func ==(that: LifecycleListener): Bool {
-        if(that is RequestManager) {
+        if (that is RequestManager) {
             return this.requestManagerKey == (that as RequestManager).getOrThrow().requestManagerKey
         }
         return false
     }
 
     public operator func !=(that: LifecycleListener): Bool {
-        if(that is RequestManager) {
+        if (that is RequestManager) {
             return this.requestManagerKey != (that as RequestManager).getOrThrow().requestManagerKey
         }
         return true
@@ -230,5 +236,4 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
     public operator func !=(that: RequestManager): Bool {
         return this.requestManagerKey != that.requestManagerKey
     }
-
 }
