@@ -25,29 +25,39 @@ public class EmptyUpdater<T> <: CacheKeyUpdater<T> {
 }
 
 public class GlideOptions <: AnyKey {
-    public let values: CustomMap<AnyGlideOptionKey, AnyGlideOptionValue> = CachedHashCodeArrayMap<AnyGlideOptionKey, AnyGlideOptionValue>();
+    public let values: CustomMap<AnyGlideOptionKey, AnyGlideOptionValue> = CachedHashCodeArrayMap<AnyGlideOptionKey, AnyGlideOptionValue>(
+        );
 
     public func putAll(other: GlideOptions) {
         values.putAll((other.values as CustomMap<AnyGlideOptionKey, AnyGlideOptionValue>).getOrThrow());
     }
 
     public func set<V>(option: GlideOption<V>, value: V): GlideOptions where V <: AnyGlideOptionValue {
-        // AppLog.error("GlideOptions set")
         values.put((option as AnyGlideOptionKey).getOrThrow(), (value as AnyGlideOptionValue).getOrThrow());
         return this;
     }
 
     public func get<V>(option: GlideOption<V>): V where V <: AnyGlideOptionValue {
-        (values.get(option)
-            .getOrDefault({ => option.getDefaultValue().getOrThrow()}) as V).getOrThrow()
+        (values.get(option).getOrDefault({=> option.getDefaultValue().getOrThrow()}) as V).getOrThrow()
+    }
+
+    public func setOptions<V>(option: String, value: String): GlideOptions where V <: AnyGlideOptionValue {
+        values.put((GlideOption<V>.memory(option) as AnyGlideOptionKey).getOrThrow(),
+            (GlideString(value) as AnyGlideOptionValue).getOrThrow());
+        return this;
+    }
+
+    public func getOptions(option: String): String {
+        let o = GlideOption<GlideString>.memory(option);
+        let r: GlideString = (values.get(o).getOrDefault({
+            => o.getDefaultValue().getOrThrow()
+        }) as GlideString).getOrThrow()
+        return r.str
     }
 
     public func equals(o: AnyKey): Bool {
-        // AppLog.error("GlideOptions equals")
         if (o is GlideOptions) {
-            // AppLog.error("o is GlideOptions")
             var other: GlideOptions = (o as GlideOptions).getOrThrow();
-            // AppLog.error("GlideOptions equals values: ${values}  other values: ${other.values}  equals: ${values == other.values}")
             return values == other.values;
         }
         return false;
@@ -67,34 +77,32 @@ public class GlideOptions <: AnyKey {
 
     public func updateDiskCacheKey(md5: MD5): Unit {
         var i = 0
-        while(i < values.size()) {
+        while (i < values.size()) {
             var value: AnyGlideOptionValue = values.valueAt(i);
             var key: AnyGlideOptionKey = values.keyAt(i);
             // TODO 其他类型
-            if(key is GlideOption<GlideInt>) {
+            if (key is GlideOption<GlideInt>) {
                 var option: GlideOption<GlideInt> = (key as GlideOption<GlideInt>).getOrThrow()
                 updateDiskCacheKeyStatic<GlideInt>(option, value, md5);
-            } else if(key is GlideOption<GlideString>) {
+            } else if (key is GlideOption<GlideString>) {
                 var option: GlideOption<GlideString> = (key as GlideOption<GlideString>).getOrThrow()
                 updateDiskCacheKeyStatic<GlideString>(option, value, md5);
-            } else if(key is GlideOption<DownsampleStrategy>) {
+            } else if (key is GlideOption<DownsampleStrategy>) {
                 var option: GlideOption<DownsampleStrategy> = (key as GlideOption<DownsampleStrategy>).getOrThrow()
                 updateDiskCacheKeyStatic<DownsampleStrategy>(option, value, md5);
             } else {
                 throw GlideException("未知GlideOption类型")
             }
-            
+
             i++
         }
     }
 
     private static func updateDiskCacheKeyStatic<T>(option: GlideOption<T>, value: AnyGlideOptionValue, md: MD5): Unit where T <: AnyGlideOptionValue {
-        // AppLog.error("updateDiskCacheKey begin")
         option.update((value as T).getOrThrow(), md);
     }
 
     public override func toString(): String {
         return "GlideOptions{values=${values}}"
     }
-
 }

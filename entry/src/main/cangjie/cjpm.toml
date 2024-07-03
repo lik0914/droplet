@@ -3,6 +3,7 @@
 
 [dependencies]
   cj_res_entry = {path = "./cj_res", version = "1.0.0"}
+  droplet = {path = "../../../../cjdroplet/src/main/cangjie", version = "1.0.0"}
 
 [package]
   cjc-version = "0.48.2"
@@ -18,7 +19,7 @@
   scripts = {}
 
 [target.aarch64-linux-ohos.bin-dependencies]
-  path-option = ["${AARCH64_LIBS}", "${AARCH64_MACRO_LIBS}", "../../../libs/droplet","../../../libs/opengl"]
+  path-option = ["${AARCH64_LIBS}", "${AARCH64_MACRO_LIBS}"]
 package-option = {}
 
 [target.x86_64-unknown-windows-gnu.bin-dependencies]
