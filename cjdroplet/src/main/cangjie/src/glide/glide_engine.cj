@@ -335,6 +335,9 @@ public enum RunStage {
 }
 
 public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallback {
+
+    private static let mtxtrans = ReentrantMutex()
+
     private let model: Model
     private var width: Int64
     private var height: Int64
@@ -918,8 +921,10 @@ public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallbac
                 case _ => false
             }) {
                 AppLog.error("transformation : ")
-                transformed = (appliedTransformation.getOrThrow().transform(decoded, width, height) as GlideResource<Z>).
+                synchronized(mtxtrans){
+                    transformed = (appliedTransformation.getOrThrow().transform(decoded, width, height) as GlideResource<Z>).
                     getOrThrow()
+                }
             }
         }
         // TODO: Make this the responsibility of the Transformation.
