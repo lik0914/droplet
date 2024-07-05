@@ -20,20 +20,6 @@
 public class Glide {
     
     /**
-     * 根据参数，构建 Glide 实例
-     * 
-     * @参数 requestManagerRetriever - RequestManagerRetriever数据类型，请求管理器检索器，用于查找 RequestManager
-     * @参数 defaultRequestOptionsFactory - RequestOptionsFactory数据类型，请求选项工厂
-     * @参数 memoryCache - MemoryCache数据类型，用于在内存缓存中添加和删除资源的接口
-     * @参数 activeResources - ActiveResources数据类型
-     * @参数 context - AbilityContext数据类型，上下文
-     * @参数 engine - Engine数据类型
-     * @参数 arrayPool - ArrayPool数据类型
-     */
-    public init(requestManagerRetriever: RequestManagerRetriever, defaultRequestOptionsFactory: RequestOptionsFactory, 
-                memoryCache: MemoryCache, activeResources: ActiveResources, context: AbilityContext, engine: Engine, arrayPool: ArrayPool)
-    
-    /**
      * 获取图片处理库实例对象
      * 
      * @参数 context - AbilityContext数据类型，上下文
@@ -82,6 +68,14 @@ public class Glide {
      */
     public func onDisAppear(key: String): Unit
     
+    /**
+     * 清空MemoryCache 注：不是活跃内存缓存
+     * 
+     * @参数 key - String数据类型
+     */
+    public func clearMemory(): Unit
+
+    
 }
 ```
 
@@ -89,16 +83,6 @@ public class Glide {
 
 ```cangjie
 public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleListener & Equatable<RequestManager> {
-    
-    /**
-     * 根据参数，构建 RequestManager 实例
-     * 
-     * @参数 glide - Glide数据类型，图片处理库
-     * @参数 lifecycle - Lifecycle数据类型，生命周期
-     * @参数 context - AbilityContext数据类型，上下文
-     * @参数 key - String数据类型
-     */
-    public init(glide: Glide, lifecycle: Lifecycle, context: AbilityContext, key: String)
     
     /**
      * 根据传入的图片文件生成图片请求构建器实例
@@ -209,14 +193,29 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * @参数 transformation - Transformation<PixelMap>要转换的类型   
      * @返回值  T 泛型数据类型
      */
-     public func transform(transformation: Transformation<PixelMap>): T {         
+     public func transform(transformation: Transformation<PixelMap>): T     
             
-    /**
-     * 是否设置图片路径
+     /**
+     * 转换图片多种效果叠加。
+     * 
+     * @参数 transformations - ArrayList<PixelMapTransformation>要转换的效果集合 
+     * @返回值  T 泛型数据类型
+     */
+      public func transforms(transformations: ArrayList<PixelMapTransformation>):T   
+        
+     /**
+     * 转换效果不生效
+     * 
+     * @返回值  T 泛型数据类型
+     */   
+     public func dontTransform(): T
+        
+     /**
+     * 是否设置DiskCacheStrategy
      * 
      * @返回值  Bool true设置 false没有
      */      
-    public func getModelSet(): Bool;       
+    public func isDiskCacheStrategySet(): Bool {    
             
     /**
      * 获取磁盘缓存策略。
@@ -224,6 +223,34 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * @返回值 DiskCacheStrategy 磁盘缓存策略
      */
     public func getDiskCacheStrategy(): DiskCacheStrategy
+            
+            
+     /**
+     * 设置签名，这个签名会影响缓存的key,签名不同，缓存的key必不同
+     * 
+     * @参数 signature: AnyKey 设置的签名，有个StringKey的实现类   
+     * @返回值  T 泛型数据类型
+     */       
+    public func setSignature(signature: AnyKey): T
+            
+    
+    /**
+     * 获取设置的签名
+     * 
+     * @返回值  AnyKey 设置的签名,有个StringKey的实现类
+     */           
+    public func getSignature(): AnyKey
+            
+            
+    /**
+     * 设置glideoption
+     * 
+     * @参数 option: 选项的key
+     * @参数 value:选项的value 
+     * @返回值  T 泛型数据类型
+     */         
+    public func setOptions(option: String, value: String): T
+    
     
 }
 ```
@@ -236,24 +263,6 @@ public class RequestBuilder<TranscodeType> <: BaseRequestOptions<RequestBuilder<
 & ModelTypes<RequestBuilder<TranscodeType>>
 & Equatable<RequestBuilder<TranscodeType>>
 & Cloneable<RequestBuilder<TranscodeType>> {
-
-    /**
-     * 根据参数，构建 RequestBuilder<TranscodeType>  实例
-     * 
-     * @参数 glide - Glide数据类型，图片处理库
-     * @参数 requestManager - RequestManager数据类型，图片请求管理器
-     * @参数 transcodeTypeClass - TransformationKey数据类型，转换数据类型
-     * @参数 context - AbilityContext数据类型，上下文
-     */
-    public init(glide: Glide, requestManager: RequestManager, transcodeTypeClass: TransformationKey, context: AbilityContext)
-
-    /**
-     * 根据参数，构建 RequestBuilder<TranscodeType>  实例
-     * 
-     * @参数 transcodeTypeClass - TransformationKey数据类型，转换数据类型
-     * @参数 other - AnyRequestBuilder，请求构建器接口
-     */
-    public init(transcodeTypeClass: TransformationKey, other: AnyRequestBuilder)
     
     /**
      * 加加载图片并显示，不包括占位图或错误图
@@ -291,6 +300,39 @@ public class RequestBuilder<TranscodeType> <: BaseRequestOptions<RequestBuilder<
      * @返回值 Target<TranscodeType> - Target<TranscodeType>数据类型
      */
     public func submit(width: Int64, height: Int64): FutureTarget<TranscodeType>
+    
+    
+     /**
+     * 只下载图片不显示，默认图片原始宽高
+     *
+     * @返回值 FutureTarget<TranscodeType> - FutureTarget<TranscodeType>数据类型
+     */
+    public func downloadOnly(): FutureTarget<InputStream>
+    
+    /**
+     * 指定宽高下载图片不显示
+     *
+     * @参数 width  Int64，图片宽
+     * @参数 height  Int64，图片高
+     * @返回值 FutureTarget<TranscodeType> - FutureTarget<TranscodeType>数据类型
+     */
+    public func downloadOnly(width: Int64, height: Int64): FutureTarget<InputStream> {
+    
+    /**
+     * 缩略图为原图缩放,参数是缩小的倍数 值在0-1之间,根据缩略图和原图的加载速度差异不保证必现
+     *
+     * @参数 sizeMultiplier  Float32，缩放的倍数
+     * @返回值 Target<TranscodeType> - Target<TranscodeType>数据类型
+     */
+    public func thumbnail(sizeMultiplier: Float32): RequestBuilder<TranscodeType>
+    
+    /**
+     * 缩略图为指定图的缩放,根据缩略图和原图的加载速度差异不保证必现
+     *
+     * @参数 thumbnailRequest  Option<RequestBuilder<TranscodeType>>，指定的缩略图
+     * @返回值 Target<TranscodeType> - Target<TranscodeType>数据类型
+     */
+    public func thumbnail(thumbnailRequest: Option<RequestBuilder<TranscodeType>>): RequestBuilder<TranscodeType> {
 
     /**
      * 为图片请求构建器应用图片加载设置。
@@ -299,6 +341,13 @@ public class RequestBuilder<TranscodeType> <: BaseRequestOptions<RequestBuilder<
      * @返回值 RequestBuilder<TranscodeType> 请求构建器
      */
     public func apply(requestOptions: AnyRequestOptions): RequestBuilder<TranscodeType>
+            
+    /**
+     * 是否设置图片路径
+     * 
+     * @返回值  Bool true设置 false没有
+     */      
+    public func getModelSet(): Bool;           
 
     /**
      * 设置请求监听器。
