@@ -165,6 +165,10 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         return selfOrThrowIfLocked();
     }
 
+    public func setOptions(option: String, value: String): T {
+        setOptions(option,value,(this as T).getOrThrow())
+    }
+
     public func setOptions(option: String, value: String, t: T): T {
         if (getIsAutoCloneEnabled()) {
             var t2 = clone(t)
@@ -567,7 +571,7 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         return set<DownsampleStrategy>(DownsampleStrategy.OPTION, strategy, s2);
     }
 
-    public func transforms(transformations: ArrayList<PixelMapTransformation>) {
+    public func transforms(transformations: ArrayList<PixelMapTransformation>): T {
         return transform(MultiTransformation(transformations))
     }
 
