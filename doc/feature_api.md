@@ -146,16 +146,15 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
      * @参数 t - T泛型数据类型
      * @返回值 T 泛型数据类型
      */
-    public func skipMemoryCache(skip: Bool, t: T): T
+    public func skipMemoryCache(skip: Bool): T
     
     /**
      * 只从缓存取数据。
      * 
      * @参数 flag - Bool数据类型
-     * @参数 t - T泛型数据类型
      * @返回值 T 泛型数据类型
      */
-    public func onlyRetrieveFromCachecj(flag:Bool,t:T):T{
+    public func onlyRetrieveFromCachecj(flag:Bool):T{
 
     /**
      * 只从缓存加载图片资源。
