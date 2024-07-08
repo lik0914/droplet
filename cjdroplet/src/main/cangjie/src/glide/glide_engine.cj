@@ -734,6 +734,8 @@ public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallbac
         return result
     }
 
+    var isByteArrayStream:Bool = false
+
     private func decodeFromData<DATA>(data: Option<DATA>, dataSource: DataSource): Option<DATA> {
         try {
             if (match (data) {
@@ -748,6 +750,7 @@ public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallbac
 
             if (d is InputStream) {
                 let inputStream: InputStream = (d as InputStream).getOrThrow()
+                isByteArrayStream = d is ByteArrayStream
                 // asFile downloadOnly
                 if (this.transformationKey.tType == TransformationKey.TRANSFORMATION_INPUTSTREAM) {
                     return (inputStream as DATA)
@@ -759,24 +762,24 @@ public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallbac
                     case None => 0
                 }
 
-                var arrDataTemp: Array<UInt8> = Array<UInt8>(2048, item: 0)
-                let listbuf: ArrayList<UInt8> = ArrayList<UInt8>()
-                var read: Int64 = 0
-
-                do {
-                    read = inputStream.read(arrDataTemp)
-                    for (j in 0..read) {
-                        listbuf.append(arrDataTemp[j])
-                    }
-                } while (read > 0)
-
-                let arrData = listbuf.toArray()
-
+                var arrData:Option<Array<UInt8>> = Option<Array<UInt8>>.None
+                if(isByteArrayStream){
+                    arrData = Array<UInt8>(size,item:0)
+                    inputStream.read(arrData.getOrThrow())
+                }else{
+                    var arrDataTemp:Array<UInt8> = Array<UInt8>(2048,item:0)
+                    let listbuf:ArrayList<UInt8> = ArrayList<UInt8>()
+                    var read:Int64 = 0
+                    do{
+                        read = inputStream.read(arrDataTemp)
+                        listbuf.appendAll(arrDataTemp[0..read])
+                    }while(read > 0)
+                    arrData = listbuf.toArray()
+                }
                 // TODO 改为判断图片格式 区分gif和静态图片 保存图片格式到drawable
-
                 // 解码器列表，进行图片解码
                 if (this.transformationKey.tType == TransformationKey.TRANSFORMATION_DRAWABLE) {
-                    result = decodeFromDataSub(dataSource, arrData)
+                    result = decodeFromDataSub(dataSource, arrData.getOrThrow())
                 } else if (this.transformationKey.tType == TransformationKey.TRANSFORMATION_PIXELMAP) {
                     let decoders: ArrayList<ResourceDecoder<Array<UInt8>, PixelMap>> = decodeHelper.
                         getPixelMapResourceDecoders()
@@ -784,8 +787,8 @@ public class DecodeJob <: GlideThread<Option<InputStream>> & FetcherReadyCallbac
                     var i: Int64 = decoders.size - 1
                     while (i >= 0) {
                         let r: ResourceDecoder<Array<UInt8>, PixelMap> = decoders[i]
-                        if (r.handles(arrData, decodeHelper.getOptions())) {
-                            let d: PixelMap = r.decode(arrData, this.width, this.height, decodeHelper.getOptions())
+                        if (r.handles(arrData.getOrThrow(), decodeHelper.getOptions())) {
+                            let d: PixelMap = r.decode(arrData.getOrThrow(), this.width, this.height, decodeHelper.getOptions())
                             let res: GlideResource<PixelMap> = onResourceDecoded<PixelMap>(dataSource,
                                 PixelMapResource.obtain(d))
                             result = res.get() as DATA

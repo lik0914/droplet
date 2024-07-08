@@ -5,7 +5,7 @@
   cj_res_cjdroplet = {path = "./cj_res", version = "1.0.0"}
 
 [ffi.c.glwrapper]
-  path = "../../../library"
+  path = "../../../libs"
 
 [package]
   cjc-version = "0.48.2"
