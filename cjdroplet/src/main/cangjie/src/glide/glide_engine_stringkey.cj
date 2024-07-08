@@ -20,10 +20,12 @@ public class StringKey <: AnyKey {
     }
 
     public operator func ==(that: AnyKey): Bool {
+        // AppLog.error("StringKey == ${equals(that)}")
         return equals(that)
     }
 
     public operator func !=(that: AnyKey): Bool {
+        // AppLog.error("StringKey != ${!equals(that)}")
         return !equals(that)
     }
 

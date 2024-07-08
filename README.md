@@ -65,7 +65,7 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
 描述具体的编译过程：
 
 ```shell
-    第一步.由于该库的transform依赖C的代码，因此首先要用cjdroplet/cpp下的C代码编译成so
+    第一步.由于该库的transform依赖C的代码，因此首先要用cjdroplet/src/main/cpp下的C代码编译成so
       编译方法，新建一个仓颉UI项目，然后在entry/src/main/下面建一个文件夹，这个文件夹是和cangjie文件夹平级的，给他取一个名字比如cjglideOpenGl,然后把刚才的
       C代码，放入这个文件夹，
       然后看新建项目的entry下面的build-profile.json5,在buildOption层级下加上这个
@@ -85,10 +85,10 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
       其中的libglwrapper.so就是我们需要的so，注意libglwrapper这个名字跟你CMakeLists.txt里面的定义有关
     
     第二步
-     在得到第一步的so之后，我们把这个so放入我们项目下的cjdroplet/libs里面即可
+     在得到第一步的so之后，我们把这个so放入我们项目下的cjdroplet/library里面即可
      然后在cjdroplet/src/main/cangjie/cjpm.toml里面添加
      [ffi.c]
-        glwrapper.path = "../../../libs"     
+        glwrapper.path = "../../../library"     
     其中glwrapper是so的名字，如果你修改了c代码改了名字，要在这里同步修改，后面那个路径就是根据cjpm.toml的相对路径
     
     最后
