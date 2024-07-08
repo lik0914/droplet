@@ -397,6 +397,11 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
     }
 
     // TODO skipMemoryCache改成disableMemoryCache
+
+    public func skipMemoryCache(skip: Bool): T {
+       skipMemoryCache(skip,(this as T).getOrThrow())
+    }
+
     public func skipMemoryCache(skip: Bool, t: T): T {
         if (getIsAutoCloneEnabled()) {
             var t2 = clone(t)
@@ -407,6 +412,10 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
         t.fields |= IS_CACHEABLE
 
         return t.selfOrThrowIfLocked();
+    }
+
+    public func onlyRetrieveFromCachecj(flag: Bool): T{
+        return onlyRetrieveFromCachecj(flag,(this as T).getOrThrow())
     }
 
     public func onlyRetrieveFromCachecj(flag: Bool, t: T): T {
