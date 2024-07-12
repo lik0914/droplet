@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
+ */
+ 
 package glide
 
 public class LinkedEntry<K, V> <: Equatable<LinkedEntry<K, V>> where K <: Equatable<K> & Hashable & ToString {
