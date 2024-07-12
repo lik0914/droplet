@@ -1,5 +1,8 @@
-package glide
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
+ */
 
+package glide
 
 // ==============================================================================
 // Adapted from Jef Poskanzer's Java port by way of J. M. G. Elliott.
