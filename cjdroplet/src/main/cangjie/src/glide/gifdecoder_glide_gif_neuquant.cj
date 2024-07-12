@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
+ */
+
 package glide
 
-/*
+/*	/*
  * NeuQuant Neural-Net Quantization Algorithm
  * ------------------------------------------
  *
@@ -8,7 +12,7 @@ package glide
  *
  * NEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994. See
  * "Kohonen neural networks for optimal colour quantization" in "Network:
- * Computation in Neural Systems" Vol. 5 (1994) pp 351-367. for a discussion of
+ * Computation in Neural Systems" Vol. 5 (1994) pp 351-367. for a discussion of	 * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
  * the algorithm.
  *
  * Any party obtaining a copy of these files from the author, directly or
@@ -19,9 +23,11 @@ package glide
  * sublicense, and/or sell copies of the Software, and to permit persons who
  * receive copies from any such party to do so, with the only requirement being
  * that this copyright notice remain intact.
- */
+ */	 */
+
 
 // Ported to Java 12/00 K Weiner
+
 class NeuQuant {
 
     protected let netsize:Int32 = 256; /* number of colours used */

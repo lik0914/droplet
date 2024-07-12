@@ -1,11 +1,11 @@
 [
     {
-        "Name": "droplet",
-        "License": "Apache License 2.0",
-        "License File": "LICENSE",
+        "Name": "glide",
+        "License": "ohther",
+        "License File": "https://gitcode.com/Cangjie-TPC/droplet/blob/develop/LICENSE",
         "Version Number": "v4.14.2",
-        "Owner": ""
+        "Owner": "bumptech"
         "Upstream URL": "https://github.com/bumptech/glide",
-        "Description": "一款专注于平滑滚动的图像加载和缓存库"
+        "Description": "An image loading and caching library for Android focused on smooth scrolling"
     }
 ]
