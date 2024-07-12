@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
+ */
+ 
 from ohos import base.*
 from ohos import ability.*
 
