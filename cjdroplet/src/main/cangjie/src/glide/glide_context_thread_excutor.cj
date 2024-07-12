@@ -1,5 +1,8 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
+ */
+ 
 package glide
-
 
 foreign func getThreadId(): UInt64
 foreign func startThread(): UInt64

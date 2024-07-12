@@ -1,5 +1,8 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
+ */
+ 
 package glide
-
 
 public class EmptySignature <: AnyKey {
   private static let EMPTY_KEY: EmptySignature = EmptySignature();
