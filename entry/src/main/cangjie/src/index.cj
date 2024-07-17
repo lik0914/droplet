@@ -30,6 +30,7 @@ class MyView {
                Button("CasePng").onClick {Router.push(url: "CasePng")}
                Button("CaseJpg1").onClick {Router.push(url: "CaseJpg1")}
                Button("CaseBmp1").onClick {Router.push(url: "CaseBmp1")}
+               Button("CaseBrightness").onClick {Router.push(url: "CaseBrightness")}
                Button("CaseWebp").onClick {Router.push(url: "CaseWebp")}
 
 

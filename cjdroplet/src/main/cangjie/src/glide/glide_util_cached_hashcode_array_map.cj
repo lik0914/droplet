@@ -157,9 +157,16 @@ public open class CustomMap<K, V> <: ToString & Equatable<CustomMap<K, V>> where
     }
 
     public operator func ==(other: CustomMap<K, V>): Bool {
+        if(list.size != other.list.size){
+            return false
+        }
         for(i in 0 .. this.list.size) {
             let l: CustomMapItem<K, V> = list[i]
-            var theirs: V = other.get(l.k).getOrThrow()
+            let otherValue:Option<V> = other.get(l.k)
+            if(otherValue.isNone()){
+                return false
+            }
+            var theirs: V = otherValue.getOrThrow()
             if (l.v != theirs) {
                 return false;
             }
@@ -170,7 +177,11 @@ public open class CustomMap<K, V> <: ToString & Equatable<CustomMap<K, V>> where
     public operator func !=(other: CustomMap<K, V>): Bool {
         for(i in 0 .. this.list.size) {
             let l: CustomMapItem<K, V> = list[i]
-            var theirs: V = other.get(l.k).getOrThrow()
+            let otherValue:Option<V> = other.get(l.k)
+             if(otherValue.isNone()){
+                return true
+            }
+            var theirs: V = otherValue.getOrThrow()
             if (l.v == theirs) {
                 return false;
             }
