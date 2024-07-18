@@ -87,7 +87,7 @@ public class RequestManager <: ModelTypes<RequestBuilder<Drawable>> & LifecycleL
     /**
      * 根据传入的图片文件生成图片请求构建器实例
      * 
-     * @参数 model - File数据类型，图片文件
+     * @参数 model - File数据类型，图片文件,以OpenOption.Open的方式打开文件时候,需要设置OpenOption.Open(true,false)
      * @返回值 RequestBuilder<Drawable> 请求构建器实例
      */
     public func load(model: File): RequestBuilder<Drawable>

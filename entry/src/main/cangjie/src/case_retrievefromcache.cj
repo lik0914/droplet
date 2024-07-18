@@ -31,8 +31,8 @@ class CaseRetrieveFromCache {
 
     @State var option:GlideRequestOption = GlideRequestOption(
         loadSrc:Option<String>.Some(src),
-        placeholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.loading))),
-        errholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.img))),
+        placeholder:Option<CJResource>.Some(@r(app.media.loading)),
+        errholder:Option<CJResource>.Some(@r(app.media.img)),
         onlyRetrieveFromCache:Option<Bool>.Some(true)
     )
 

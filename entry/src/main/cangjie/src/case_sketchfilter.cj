@@ -30,9 +30,9 @@ class CaseSketchFilter {
     var src : String = "https://img-blog.csdnimg.cn/20190928202303919.bmp"
     @State var option:GlideRequestOption = GlideRequestOption(
         loadSrc:Option<String>.Some(src),
-        placeholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.loading))),
-        errholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.img))),
-        transformCate:Option<Option<PixelMapTransformation>>.Some(Option<PixelMapTransformation>.Some(SketchFilterTransformation())),
+        placeholder:Option<CJResource>.Some(@r(app.media.loading)),
+        errholder:Option<CJResource>.Some(@r(app.media.img)),
+        transformCate:Option<PixelMapTransformation>.Some(SketchFilterTransformation())
     )
 
     public func onAppear() : Unit{

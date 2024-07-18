@@ -30,8 +30,8 @@ class CaseCompJpg {
     var src : String = "https://copyright.bdstatic.com/vcg/creative/cc9c744cf9f7c864889c563cbdeddce6.jpg"
     @State var option:GlideRequestOption = GlideRequestOption(
         loadSrc:Option<String>.Some(src),
-        placeholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.loading))),
-        errholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.img))),
+        placeholder:Option<CJResource>.Some(@r(app.media.loading)),
+        errholder:Option<CJResource>.Some(@r(app.media.img))
     )
 
     public func onAppear() : Unit{
