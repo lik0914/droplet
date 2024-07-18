@@ -30,8 +30,8 @@ class CaseError2 {
       var src : String = "https://img2.baidu.comcuowu/it/u=365005294,681333190&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500"
       @State var option:GlideRequestOption = GlideRequestOption(
           loadSrc:Option<String>.Some(src),
-          placeholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.loading))),
-          errholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.img))),
+          placeholder:Option<CJResource>.Some(@r(app.media.loading)),
+          errholder:Option<CJResource>.Some(@r(app.media.img))
       )
 
       public func onAppear() : Unit{

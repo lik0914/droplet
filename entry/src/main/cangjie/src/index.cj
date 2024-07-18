@@ -32,6 +32,8 @@ class MyView {
                Button("CaseBmp1").onClick {Router.push(url: "CaseBmp1")}
                Button("CaseBrightness").onClick {Router.push(url: "CaseBrightness")}
                Button("CaseWebp").onClick {Router.push(url: "CaseWebp")}
+               Button("CaseSetOverride3").onClick {Router.push(url: "CaseSetOverride3")}
+               Button("CaseRotate").onClick {Router.push(url: "CaseRotate")}
 
 
             }.width(100.percent)
