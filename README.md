@@ -197,7 +197,8 @@ load成功
 
 
 ## 开源协议
-Apache License 2.0
+
+本项目基于 [Google License](./LICENSE) ，请自由的享受和参与开源。
 
 ## 参与贡献
 

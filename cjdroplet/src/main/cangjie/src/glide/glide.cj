@@ -81,6 +81,8 @@ public class GlideBuilder {
 
 public class Glide <: ActiveResourceRemovedListener {
 
+    public static var globalcontext:Option<AbilityContext> = Option<AbilityContext>.None
+
     public static let LIFECYCLE_KEY_GLOBAL: String = "global"
 
     private let requestManagerRetriever: RequestManagerRetriever
@@ -109,6 +111,7 @@ public class Glide <: ActiveResourceRemovedListener {
         this.engine = engine
         this.arrayPool = arrayPool
         this.activeResources.setActiveResourceRemovedListener(this)
+        globalcontext = context
     }
 
     public func getEngine(): Engine {

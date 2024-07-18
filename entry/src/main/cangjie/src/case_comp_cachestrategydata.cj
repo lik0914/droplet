@@ -30,9 +30,9 @@ class CaseCompCacheStrategyData {
     var src : String = "https://pic.leetcode-cn.com/1614477066-YeEeWg-file_1614477068523"
     @State var option:GlideRequestOption = GlideRequestOption(
         loadSrc:Option<String>.Some(src),
-        placeholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.loading))),
-        errholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.img))),
-        strategy:Option<Option<DiskCacheStrategy>>.Some(Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA())),
+        placeholder:Option<CJResource>.Some(@r(app.media.loading)),
+        errholder:Option<CJResource>.Some(@r(app.media.img)),
+        strategy:Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA())
     )
 
     public func onAppear() : Unit{

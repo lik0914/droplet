@@ -30,8 +30,8 @@ class CaseOverride {
     var src : String = "https://pic.leetcode-cn.com/1614477066-PJZiFC-file_1614477068740"
     @State var option:GlideRequestOption = GlideRequestOption(
         loadSrc:Option<String>.Some(src),
-        placeholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.loading))),
-        errholder:Option<Option<CJResource>>.Some(Option<CJResource>.Some(@r(app.media.img))),
+        placeholder:Option<CJResource>.Some(@r(app.media.loading)),
+        errholder:Option<CJResource>.Some(@r(app.media.img)),
         overrideWH:Option<(Int64,Int64)>.Some((400,400))
     )
 

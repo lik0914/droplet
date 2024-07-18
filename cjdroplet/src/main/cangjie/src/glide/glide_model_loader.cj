@@ -11,6 +11,8 @@ from net import tls.*
 from std import time.Duration
 
 from ohos import base.*
+from ohos import resource_manager.*
+
 
 public interface ModelLoader {
     func loadModel(t: Any, options: GlideOptions): Option<InputStream>
@@ -45,7 +47,7 @@ public class StringModelLoader <: ModelLoader {
         } else if(s.startsWith("http")) {
         return getImageFromHttpClient(s)
         } else {
-            return None
+          return getImageFromRawFile(s)
         }
     }
 
@@ -67,6 +69,18 @@ public class StringModelLoader <: ModelLoader {
         let resp = client.get(path)
         return Some(resp.body)
     }
+
+    private func getImageFromRawFile(rawFileName: String): Option<InputStream> {
+          try{
+             let resourceManager = ResourceManager.getResourceManager(getStageContext(Glide.globalcontext.getOrThrow()))
+             let arr:Array<UInt8> = resourceManager.getRawFileContent(rawFileName)
+             var byteStream:ByteArrayStream = ByteArrayStream()
+             byteStream.write(arr)
+             return byteStream
+          }catch(e:Exception){
+            return None
+          }
+      }
 
 
 }

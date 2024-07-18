@@ -1,4 +1,14 @@
-License for everything not in third_party and not otherwise marked:
+License for everything not in
+glide/glide_engine_cache_disklrucache_disk_lru_cache.cj and
+glide/gifdecoder_glide_gif_gifdecoder.cj and
+glide/gifdecoder_glide_gif_gifframe.cj and
+glide/gifdecoder_glide_gif_gifheader.cj and
+glide/gifdecoder_glide_gif_gifheaderparser.cj and
+glide/gifdecoder_glide_gif_standardgifdecoder_cjui.cj and
+glide/gifdecoder_glide_gif_animatedgifencoder.cj and
+glide/gifdecoder_glide_gif_lzwencoder.cj and
+glide/gifdecoder_glide_gif_neuquant.cj
+and not otherwise marked:
 
 Copyright 2014 Google, Inc. All rights reserved.
 
@@ -26,7 +36,7 @@ The views and conclusions contained in the software and documentation are those 
 authors and should not be interpreted as representing official policies, either expressed
 or implied, of Google, Inc.
 ---------------------------------------------------------------------------------------------
-License for third_party/disklrucache:
+License for glide/glide_engine_cache_disklrucache_disk_lru_cache.cj
 
 Copyright 2012 Jake Wharton
 Copyright 2011 The Android Open Source Project
@@ -43,7 +53,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ---------------------------------------------------------------------------------------------
-License for third_party/gif_decoder:
+License for glide/gifdecoder_glide_gif_gifdecoder.cj and
+            glide/gifdecoder_glide_gif_gifframe.cj and
+            glide/gifdecoder_glide_gif_gifheader.cj and
+            glide/gifdecoder_glide_gif_gifheaderparser.cj and
+            glide/gifdecoder_glide_gif_standardgifdecoder_cjui.cj
 
 Copyright (c) 2013 Xcellent Creations, Inc.
 
@@ -66,8 +80,8 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---------------------------------------------------------------------------------------------
-License for third_party/gif_encoder/AnimatedGifEncoder.java and
-third_party/gif_encoder/LZWEncoder.java:
+License for glide/gifdecoder_glide_gif_animatedgifencoder.cj and
+            glide/gifdecoder_glide_gif_lzwencoder.cj
 
 No copyright asserted on the source code of this class. May be used for any
 purpose, however, refer to the Unisys LZW patent for restrictions on use of
@@ -75,7 +89,7 @@ the associated LZWEncoder class. Please forward any corrections to
 kweiner@fmsware.com.
 
 -----------------------------------------------------------------------------
-License for third_party/gif_encoder/NeuQuant.java
+License for glide/gifdecoder_glide_gif_neuquant.cj
 
 Copyright (c) 1994 Anthony Dekker
 
