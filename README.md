@@ -153,9 +153,9 @@ class MyView {
         //loadSrc: "/data/storage/el1/bundle/testwebp.webp",  // wbep
         //loadSrc: "/data/storage/el1/bundle/test.gif",       // gif
 
-        placeholder: Option < Option < CJResource >>.Some(Option < CJResource >.Some(@r(app.media.loading))),             // 占位图使用本地资源icon_loading（可选）
-        errholder: Option < Option < CJResource >>.Some(Option < CJResource >.Some(@r(app.media.img))),                     // 失败占位图使用本地资源icon_failed（可选）
-        strategy: Option < Option < DiskCacheStrategy >>.Some(Option < DiskCacheStrategy >.Some(DiskCacheStrategyDATA())),                // 磁盘缓存策略（可选）
+        placeholder: Option<CJResource>.Some(@r(app.media.loading)),             // 占位图使用本地资源icon_loading（可选）
+        errholder: Option<CJResource>.Some(@r(app.media.img)),                     // 失败占位图使用本地资源icon_failed（可选）
+        strategy: Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA()),                // 磁盘缓存策略（可选）
         label: Option<String>.Some("page")                                         // 生命周期标签
     )
 
