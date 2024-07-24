@@ -777,12 +777,7 @@ class MyView {
     @State
     var option: GlideRequestOption = GlideRequestOption (
         // 加载一张本地的jpg资源（必选）
-        loadSrc: Option<String>.Some("https://pic.leetcode-cn.com/1614477066-YeEeWg-file_1614477068523"),    // bmp
-        //loadSrc: "/data/storage/el1/bundle/testjpg.jpg",    // jpg
-        //loadSrc: "/data/storage/el1/bundle/testpng.png",    // png
-        //loadSrc: "/data/storage/el1/bundle/testwebp.webp",  // wbep
-        //loadSrc: "/data/storage/el1/bundle/test.gif",       // gif
-
+        loadSrc: "/data/storage/el1/bundle/testjpg.jpg",    // jpg
         placeholder: Option<CJResource>.Some(@r(app.media.loading)),             // 占位图使用本地资源icon_loading（可选）
         errholder: Option<CJResource>.Some(@r(app.media.img)),                     // 失败占位图使用本地资源icon_failed（可选）
         strategy: Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA()),                // 磁盘缓存策略（可选）
@@ -790,11 +785,9 @@ class MyView {
     )
 
     public func onAppear(): Unit {
-        AppLog.error("调了onAppear1--------------------------------------------------------------------GlideImage")
         Glide.get(globalAbilityContext.getOrThrow()).onAppear(option.label)
     }
     public func onDisappear(): Unit {
-        AppLog.error("调了onDisAppear1--------------------------------------------------------------------GlideImage")
         Glide.get(globalAbilityContext.getOrThrow()).onDisAppear(option.label)
     }
 
