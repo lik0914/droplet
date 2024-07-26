@@ -1,14 +1,4 @@
-License for everything not in
-glide/glide_engine_cache_disklrucache_disk_lru_cache.cj and
-glide/gifdecoder_glide_gif_gifdecoder.cj and
-glide/gifdecoder_glide_gif_gifframe.cj and
-glide/gifdecoder_glide_gif_gifheader.cj and
-glide/gifdecoder_glide_gif_gifheaderparser.cj and
-glide/gifdecoder_glide_gif_standardgifdecoder_cjui.cj and
-glide/gifdecoder_glide_gif_animatedgifencoder.cj and
-glide/gifdecoder_glide_gif_lzwencoder.cj and
-glide/gifdecoder_glide_gif_neuquant.cj
-and not otherwise marked:
+License for everything not in third_party and not otherwise marked:
 
 Copyright 2014 Google, Inc. All rights reserved.
 
