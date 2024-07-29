@@ -5,7 +5,7 @@
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.51.1-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.53.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
 
@@ -36,8 +36,8 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
 ### 架构图
 
 <p align="center">
-<img src="./doc/assets/1.png" width="60%" >
-<img src="./doc/assets/2.png" width="60%" >
+<img src="./doc/assets/framework1.png" width="60%" >
+<img src="./doc/assets/framework2.png" width="60%" >
 </p>
 
 架构图文字说明，包括模块说明、架构层次等详细说明。
@@ -49,7 +49,7 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
 ├── doc                                       #文档目录
 │   ├── assets                                #文档资源目录
 │   └── feature_api.md                        #API接口文档
-├── cjdroplet                                 #源码目录 
+├── library                                 #源码目录 
 └── entry                                     #测试用例目录
 ```
 
@@ -65,12 +65,12 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
 描述具体的编译过程：
 
 ```shell
-    第一步.由于该库的transform依赖C的代码，因此首先要用cjdroplet/cpp下的C代码编译成so
-      编译方法，新建一个仓颉UI项目，然后在entry/src/main/下面建一个文件夹，这个文件夹是和cangjie文件夹平级的，给他取一个名字比如cjglideOpenGl,然后把刚才的
+    第一步.由于该库的transform依赖C的代码，因此首先要用library/cpp下的C代码编译成so
+      编译方法，新建一个仓颉UI项目，然后在entry/src/main/下面建一个文件夹，这个文件夹是和cangjie文件夹平级的，给他取一个名字比如cjdropletOpenGl,然后把刚才的
       C代码，放入这个文件夹，
       然后看新建项目的entry下面的build-profile.json5,在buildOption层级下加上这个
       "externalNativeOptions": {
-       "path":"./src/main/cjglideOpenGl/CMakeLists.txt",
+       "path":"./src/main/cjdropletOpenGl/CMakeLists.txt",
        "arguments": "",
        "cppFlags": "",
        "abiFilters": [
@@ -85,10 +85,10 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
       其中的libglwrapper.so就是我们需要的so，注意libglwrapper这个名字跟你CMakeLists.txt里面的定义有关
     
     第二步
-     在得到第一步的so之后，我们把这个so放入我们项目下的cjdroplet/libs里面即可
-     然后在cjdroplet/src/main/cangjie/cjpm.toml里面添加
+     在得到第一步的so之后，我们把这个so放入我们项目下的library/libs里面即可
+     然后在library/src/main/cangjie/cjpm.toml里面添加   
      [ffi.c]
-        glwrapper.path = "../../../libs"     
+        glwrapper = {path = "../../../libs/"}   
     其中glwrapper是so的名字，如果你修改了c代码改了名字，要在这里同步修改，后面那个路径就是根据cjpm.toml的相对路径
     
     最后
@@ -103,37 +103,16 @@ droplet是一个图像加载缓存库，致力于更高效、更轻便、更简�
 示例代码如下：
 
 ```cangjie
-from ohos import base.*
-from ohos import component.*
-from ohos import state_manage.*
-from ohos import state_macro_manage.*
-from cj_res import default.*
+package ohos_app_cangjie_entry
 
-from net import http.*
-from std import socket.*
-from net import tls.*
-from std import io.*
-from encoding import url.*
-from std import fs.*
-from std import time.*
+import ohos.component.*
+import ohos.state_manage.*
+import ohos.state_macro_manage.*
+import ohos.base.*
+import ohos.ability.*
 
-import glide.engine.cache.disk_lru_cache.Entry as DisLruEntry
-import glide.engine.cache.memory_cache.Entry as LruEntry
-
-import zujianbao.*
-import glide.*
-import glide.add.*
-import glide.request.*
-import glide.executor.*
-import glide.util.utils.*
-
-import glide.request_options.*
-import glide.util.pool.*
-import glide.load.*
-import glide.util.*
-import glide.util.calculator.*
-import glide.engine.cache.memory_cache.*
-
+import cj_res_entry.app
+import droplet.droplet.*
 
 @Entry
 @Component
@@ -145,26 +124,27 @@ class MyView {
 
 
     @State
-    var option: GlideRequestOption = GlideRequestOption (
+    var option: DropletRequestOption = DropletRequestOption (
         // 加载一张本地的jpg资源（必选）
-        loadSrc: "/data/storage/el1/bundle/testjpg.jpg",    // jpg
-        placeholder: Option<CJResource>.Some(@r(app.media.loading)),             // 占位图使用本地资源icon_loading（可选）
-        errholder: Option<CJResource>.Some(@r(app.media.img)),                     // 失败占位图使用本地资源icon_failed（可选）
-        strategy: Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA()),                // 磁盘缓存策略（可选）
-        label: Option<String>.Some("page")                                         // 生命周期标签
+        loadSrc: "/data/storage/el1/bundle/testjpg.jpg",    // (必选) jpg 注意这里是本地路径，必须本地有这张图片，才能加载 或者自己填写网络图片
+        placeholder: Option<CJResource>.Some(@r(app.media.loading)),             // 占位图使用本地资源icon_loading（可选）自己定义
+        errholder: Option<CJResource>.Some(@r(app.media.img)),                   // 失败占位图使用本地资源icon_failed（可选） 自己定义
+        strategy: Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA()),       // 磁盘缓存策略（可选）
+        label: Option<String>.Some("page"),                                       // 生命周期标签 （可选）
+        signature:Option<String>.Some("1111") //不同的signature可保证缓存key的唯一    （可选）                                
     )
 
     public func onAppear(): Unit {
-        Glide.get(globalAbilityContext.getOrThrow()).onAppear(option.label)
+        Droplet.get(globalAbilityContext.getOrThrow()).onAppear(option.label)
     }
     public func onDisappear(): Unit {
-        Glide.get(globalAbilityContext.getOrThrow()).onDisAppear(option.label)
+        Droplet.get(globalAbilityContext.getOrThrow()).onDisAppear(option.label)
     }
 
-    func render() {
+    func build() {
         Column(30) {
             Column() {
-                GlideImageZJ(globalContext:globalAbilityContext,option: option, beginFn: {=> text = "begin";AppLog.error("glide hhs begin")}, endFn: {=> textTmp = "end";AppLog.error("glide hhs end")})
+                DropletImageComponent(globalContext:globalAbilityContext,option: option, beginFn: {=> text = "begin";AppLog.error("droplet hhs begin")}, endFn: {=> textTmp = "end";AppLog.error("droplet hhs end")})
             }.width(100.percent)
         }
     }
@@ -184,7 +164,7 @@ load成功
 
 ## 约束与限制
 
-当前基于 OpenHarmony Cangjie Mobile1.1.0.B033 版本实现的
+当前基于 OpenHarmony Cangjie Mobile B100 版本实现的
 
 1.暂未支持过渡动画
 

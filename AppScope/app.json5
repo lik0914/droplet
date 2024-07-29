@@ -1,6 +1,6 @@
 {
   "app": {
-    "bundleName": "com.cj.glide",
+    "bundleName": "com.cj.droplet",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",
