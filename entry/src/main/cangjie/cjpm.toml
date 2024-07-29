@@ -1,9 +1,9 @@
 [target.aarch64-linux-ohos]
-  compile-option = "-B\"${DEVECO_CANGJIE_HOME}/compiler/third_party/llvm/bin\" -B\"${DEVECO_CANGJIE_HOME}/musl/usr/lib/aarch64-linux-ohos\" -L\"${DEVECO_CANGJIE_HOME}/musl/usr/lib/aarch64-linux-ohos\" -L\"${DEVECO_CANGJIE_HOME}/build/linux_ohos_aarch64_llvm/openssl\" --sysroot \"${DEVECO_CANGJIE_HOME}/musl\""
+  compile-option = "-B \"${DEVECO_CANGJIE_HOME}/compiler/third_party/llvm/bin\" -B \"${DEVECO_CANGJIE_HOME}/musl/usr/lib/aarch64-linux-ohos\" -L \"${DEVECO_CANGJIE_HOME}/musl/usr/lib/aarch64-linux-ohos\" -L \"${DEVECO_CANGJIE_HOME}/build/linux_ohos_aarch64_llvm/openssl\" --sysroot \"${DEVECO_CANGJIE_HOME}/musl\""
 
 [dependencies]
   cj_res_entry = {path = "./cj_res", version = "1.0.0"}
-  droplet = {path = "../../../../cjdroplet/src/main/cangjie", version = "1.0.0"}
+  droplet = {path = "../../../../library/src/main/cangjie", version = "1.0.0"}
 
 [package]
   cjc-version = "0.48.2"

@@ -1,10 +1,16 @@
 /*
  * Copyright (c) Huawei Technologies Co., Ltd. 2023-2024. All rights resvered.
  */
- 
-from ohos import base.*
-from ohos import ability.*
-from ohos import window.*
+
+package ohos_app_cangjie_entry
+
+import ohos.component.*
+import ohos.state_manage.*
+import ohos.state_macro_manage.*
+
+import ohos.base.*
+import ohos.ability.*
+import ohos.window.*
 
 var globalAbilityContext: Option<AbilityContext> = Option<AbilityContext>.None
 

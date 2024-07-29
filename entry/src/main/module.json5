@@ -14,11 +14,11 @@
         "name": "ohos.permission.INTERNET"
       }
     ],
-    "srcEntry": "default.MyAbilityStage",
+    "srcEntry": "ohos_app_cangjie_entry.MyAbilityStage",
     "abilities": [
       {
         "name": "EntryAbility",
-        "srcEntry": "default.MainAbility",
+        "srcEntry": "ohos_app_cangjie_entry.MainAbility",
         "description": "$string:EntryAbility_desc",
         "icon": "$media:layered_image",
         "label": "$string:EntryAbility_label",
