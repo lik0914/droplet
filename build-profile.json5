@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\admin\\.ohos\\config\\default_droplet_A7DXQ0JlpJOxPWPmaAEqNIuBysVQLzh8VuJxK5ggZTg=.cer",
-          "storePassword": "0000001B6A09350C3A48B253AFE780A7B4FACA2E5CF2DAEC99E6E742AF3A30EE86AA51CC4D44D65B44D2E5",
+          "certpath": "C:\\Users\\admin\\.ohos\\config\\default_MyApplicationdroplet100_JZQoaRk0cgdu3rlP0eUF4anolLqWkSOwKu_3C58L9Is=.cer",
+          "storePassword": "0000001BC7DFD9A62BBBB56BF42E1E460614BC459312EC3FBD7F5C9B2DF440EFF692507001EFCDA7A2C4AA",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B921AFE1334D388328247139D914D12086D011533B9CC5E793EBA4A34D962AA9DF33E055C55E3CD",
-          "profile": "C:\\Users\\admin\\.ohos\\config\\default_droplet_A7DXQ0JlpJOxPWPmaAEqNIuBysVQLzh8VuJxK5ggZTg=.p7b",
+          "keyPassword": "0000001BB5BFC28B1F98B87E9E811065402D2941B879FA993D921965228E3F89EFCB51A78597B5474E5875",
+          "profile": "C:\\Users\\admin\\.ohos\\config\\default_MyApplicationdroplet100_JZQoaRk0cgdu3rlP0eUF4anolLqWkSOwKu_3C58L9Is=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\admin\\.ohos\\config\\default_droplet_A7DXQ0JlpJOxPWPmaAEqNIuBysVQLzh8VuJxK5ggZTg=.p12"
+          "storeFile": "C:\\Users\\admin\\.ohos\\config\\default_MyApplicationdroplet100_JZQoaRk0cgdu3rlP0eUF4anolLqWkSOwKu_3C58L9Is=.p12"
         }
       }
     ],
@@ -46,8 +46,8 @@
       ]
     },
     {
-      "name": "cjdroplet",
-      "srcPath": "./cjdroplet"
+      "name": "library",
+      "srcPath": "./library"
     }
   ]
 }
