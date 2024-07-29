@@ -1,9 +1,0 @@
-{
-  "module": {
-    "name": "cjdroplet",
-    "type": "har",
-    "deviceTypes": [
-      "default"
-    ]
-  }
-}
