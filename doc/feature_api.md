@@ -2,7 +2,7 @@
 ## droplet
 
 ### 介绍
-专注于平滑滚动的图像加载和缓存库，Glide支持获取、解码和显示视频剧照、图像和动画GIF。
+专注于平滑滚动的图像加载和缓存库，Droplet支持获取、解码和显示视频剧照、图像和动画GIF。
 
 - 生命周期管理
 - 静态图像加载
@@ -12,20 +12,20 @@
 - 支持transform动画转换
 - 支持自定义组件方式加载
 
-### 1 Glide 图片处理库
+### 1 Droplet 图片处理库
 
-#### 1.1 Glide 全局单例对象类
+#### 1.1 Droplet 全局单例对象类
 
 ```cangjie
-public class Glide {
+public class Droplet {
     
     /**
      * 获取图片处理库实例对象
      * 
      * @参数 context - AbilityContext数据类型，上下文
-     * @返回值 Glide 图片处理库实例对象
+     * @返回值 Droplet 图片处理库实例对象
      */
-    public static func get(context: AbilityContext): Glide
+    public static func get(context: AbilityContext): Droplet
 
     /**
      * 根据页面标记，获取绑定的图片请求管理器实例对象，每个页面有一个单独的图片请求管理器。
@@ -242,7 +242,7 @@ public open class BaseRequestOptions<T> <: AnyRequestOptions where T <: BaseRequ
             
             
     /**
-     * 设置glideoption
+     * 设置dropletoption
      * 
      * @参数 option: 选项的key
      * @参数 value:选项的value 
@@ -386,13 +386,13 @@ public interface RequestListener<R> {
     /**
      * 图片加载失败时调用。
      *
-     * @参数 e - GlideException数据类型，图片加载异常
+     * @参数 e - DropletException数据类型，图片加载异常
      * @参数 model - Model数据类型，图片模型
      * @参数 target - Target<R>数据类型，图片请求构建器
      * @参数 isFirstResource - Boolean数据类型，是否是第一个资源
      * @返回值 Boolean 是否消费事件 true：消费事件，停止后续加载流程，不显示错误图 false：继续图片加载流程，显示错误图
      */
-    func onLoadFailed(e: GlideException, model: Model, target: Target<R>, isFirstResource: Bool): Bool;
+    func onLoadFailed(e: DropletException, model: Model, target: Target<R>, isFirstResource: Bool): Bool;
 }
 ```
 
@@ -733,36 +733,17 @@ public class ToonFilterTransformation <: PixelMapTransformation {
 ### 3 示例
 
 ```cangjie
-from ohos import base.*
-from ohos import component.*
-from ohos import state_manage.*
-from ohos import state_macro_manage.*
-from cj_res import default.*
 
-from net import http.*
-from std import socket.*
-from net import tls.*
-from std import io.*
-from encoding import url.*
-from std import fs.*
-from std import time.*
+package ohos_app_cangjie_entry
 
-import glide.engine.cache.disk_lru_cache.Entry as DisLruEntry
-import glide.engine.cache.memory_cache.Entry as LruEntry
+import ohos.component.*
+import ohos.state_manage.*
+import ohos.state_macro_manage.*
+import ohos.base.*
+import ohos.ability.*
 
-import zujianbao.*
-import glide.*
-import glide.add.*
-import glide.request.*
-import glide.executor.*
-import glide.util.utils.*
-
-import glide.request_options.*
-import glide.util.pool.*
-import glide.load.*
-import glide.util.*
-import glide.util.calculator.*
-import glide.engine.cache.memory_cache.*
+import cj_res_entry.app
+import droplet.droplet.*
 
 
 @Entry
@@ -775,26 +756,27 @@ class MyView {
 
 
     @State
-    var option: GlideRequestOption = GlideRequestOption (
+    var option: DropletRequestOption = DropletRequestOption (
         // 加载一张本地的jpg资源（必选）
-        loadSrc: "/data/storage/el1/bundle/testjpg.jpg",    // jpg
-        placeholder: Option<CJResource>.Some(@r(app.media.loading)),             // 占位图使用本地资源icon_loading（可选）
-        errholder: Option<CJResource>.Some(@r(app.media.img)),                     // 失败占位图使用本地资源icon_failed（可选）
-        strategy: Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA()),                // 磁盘缓存策略（可选）
-        label: Option<String>.Some("page")                                         // 生命周期标签
+        loadSrc: "/data/storage/el1/bundle/testjpg.jpg",    // (必选) jpg 注意这里是本地路径，必须本地有这张图片，才能加载 或者自己填写网络图片
+        placeholder: Option<CJResource>.Some(@r(app.media.loading)),             // 占位图使用本地资源icon_loading（可选）自己定义
+        errholder: Option<CJResource>.Some(@r(app.media.img)),                   // 失败占位图使用本地资源icon_failed（可选） 自己定义
+        strategy: Option<DiskCacheStrategy>.Some(DiskCacheStrategyDATA()),       // 磁盘缓存策略（可选）
+        label: Option<String>.Some("page"),                                       // 生命周期标签 （可选）
+        signature:Option<String>.Some("1111") //不同的signature可保证缓存key的唯一    （可选）  
     )
 
     public func onAppear(): Unit {
-        Glide.get(globalAbilityContext.getOrThrow()).onAppear(option.label)
+        Droplet.get(globalAbilityContext.getOrThrow()).onAppear(option.label)
     }
     public func onDisappear(): Unit {
-        Glide.get(globalAbilityContext.getOrThrow()).onDisAppear(option.label)
+        Droplet.get(globalAbilityContext.getOrThrow()).onDisAppear(option.label)
     }
 
-    func render() {
+    func build() {
         Column(30) {
             Column() {
-                GlideImageZJ(globalContext:globalAbilityContext,option: option, beginFn: {=> text = "begin";AppLog.error("glide hhs begin")}, endFn: {=> textTmp = "end";AppLog.error("glide hhs end")})
+                DropletImageComponent(globalContext:globalAbilityContext,option: option, beginFn: {=> text = "begin";AppLog.error("droplet hhs begin")}, endFn: {=> textTmp = "end";AppLog.error("droplet hhs end")})
             }.width(100.percent)
         }
     }
